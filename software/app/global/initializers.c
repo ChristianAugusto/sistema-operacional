@@ -5,3 +5,11 @@ void init_process_queues() {
     FU3 = declare_process_queue();
     FTR = declare_process_queue();
 }
+
+
+void read_process_from_file() {
+    /*
+        TODO: Criar função para iniciar processos
+        lidos de um arquivo de entrada
+    */
+}
