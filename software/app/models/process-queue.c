@@ -1,8 +1,3 @@
-typedef struct process {
-    char priority;
-    struct process * next;
-} Process;
-
 typedef struct {
     Process* head;
     Process* last;
@@ -24,15 +19,6 @@ ProcessQueue* declare_process_queue() {
     q->size = 0;
 
     return q;
-}
-
-
-Process* declare_process(char pr) {
-    Process* p = (Process*)malloc(sizeof(Process));
-
-    p->priority = pr;
-
-    return p;
 }
 
 
