@@ -43,14 +43,21 @@ Process* peek_process_queue(ProcessQueue* q) {
 
 
 void dequeue_process_queue(ProcessQueue* q) {
-    if (q->head == NULL) {
+    if (empty_process_queue(q)) {
         return;
     }
 
 
     Process* aux = q->head;
 
-    q->head = q->head->next;
+    if (q->size == 1) {
+        q->head = NULL;
+        q->last = NULL;
+    }
+    else {
+        q->head = q->head->next;
+    }
+
     q->size--;
 
     free(aux);
@@ -74,7 +81,7 @@ void print_process(Process* p, char* scape, char* division) {
 
 
 void print_process_queue(ProcessQueue* q) {
-    if (q->head == NULL) {
+    if (empty_process_queue(q)) {
         printf("[]\n");
         return;
     }
