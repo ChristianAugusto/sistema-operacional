@@ -6,8 +6,14 @@ typedef struct process {
 typedef struct {
     Process* head;
     Process* last;
+    int size;
 } ProcessQueue;
 
+
+
+boolean empty_process_queue(ProcessQueue* q) {
+    return !q->head;
+}
 
 
 ProcessQueue* declare_process_queue() {
@@ -15,50 +21,53 @@ ProcessQueue* declare_process_queue() {
 
     q->head = NULL;
     q->last = NULL;
+    q->size = 0;
 
     return q;
 }
 
 
-Process* declare_process() {
+Process* declare_process(char pr) {
     Process* p = (Process*)malloc(sizeof(Process));
 
-    p->priority = DEFAULT_PRIORITY;
+    p->priority = pr;
 
     return p;
 }
 
 
-void add_process_queue(ProcessQueue* q, Process* p) {
+void enqueue_process_queue(ProcessQueue* q, Process* p) {
     p->next = NULL;
 
-    if (q->head == NULL) {
+    if (empty_process_queue(q)) {
         q->head = p;
-        q->last = p;
     }
     else {
         q->last->next = p;
-        q->last = p;
     }
+
+    q->last = p;
+    q->size++;
 }
 
 
-Process* get_process_queue(ProcessQueue* q) {
+Process* peek_process_queue(ProcessQueue* q) {
     return q->head;
 }
 
 
-Process* remove_process_queue(ProcessQueue* q) {
+void dequeue_process_queue(ProcessQueue* q) {
     if (q->head == NULL) {
-        return NULL;
+        return;
     }
 
 
-    Process* p = q->head;
+    Process* aux = q->head;
 
     q->head = q->head->next;
+    q->size--;
 
-    return p;
+    free(aux);
 }
 
 
@@ -81,11 +90,14 @@ void print_process(Process* p, char* scape, char* division) {
 void print_process_queue(ProcessQueue* q) {
     if (q->head == NULL) {
         printf("[]\n");
+        return;
     }
+
 
     printf("[\n");
 
     Process* aux = q->head;
+
     while (aux != NULL) {
         print_process(aux, "\t", ",");
 
