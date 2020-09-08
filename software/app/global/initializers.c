@@ -1,3 +1,10 @@
+ProcessQueue* FE;
+ProcessQueue* FU1;
+ProcessQueue* FU2;
+ProcessQueue* FU3;
+ProcessQueue* FTR;
+
+
 void init_process_queues() {
     FE = declare_process_queue();
     FU1 = declare_process_queue();

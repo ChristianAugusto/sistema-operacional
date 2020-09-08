@@ -80,6 +80,13 @@ void print_process(Process* p, char* scape, char* division) {
 }
 
 
+void clean_process_queue(ProcessQueue* q) {
+    while (!empty_process_queue(q)) {
+        dequeue_process_queue(q);
+    }
+}
+
+
 void print_process_queue(ProcessQueue* q) {
     if (empty_process_queue(q)) {
         printf("[]\n");

@@ -1,7 +1,4 @@
-void test_process_queue() {
-    ProcessQueue* q = declare_process_queue();
-
-
+void test_process_queue(ProcessQueue* q) {
     enqueue_process_queue(q, declare_process(DEFAULT_PRIORITY));
     enqueue_process_queue(q, declare_process(DEFAULT_PRIORITY));
     enqueue_process_queue(q, declare_process(DEFAULT_PRIORITY));
@@ -34,4 +31,10 @@ void test_process_queue() {
 
 
     print_process_queue(q);
+
+
+    // enqueue_process_queue(q, declare_process(DEFAULT_PRIORITY));
+    // enqueue_process_queue(q, declare_process(DEFAULT_PRIORITY));
+    // enqueue_process_queue(q, declare_process(DEFAULT_PRIORITY));
+    // enqueue_process_queue(q, declare_process(DEFAULT_PRIORITY));
 }
