@@ -14,6 +14,8 @@
 
 /* global */
 #include "./global/initializers.c"
+#include "./global/memory.c"
+#include "./global/validators.c"
 #include "./global/finishers.c"
 
 /* tests */

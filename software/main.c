@@ -5,6 +5,7 @@
 int main() {
     /* initializers */
     init_process_queues();
+    init_memory_usage();
 
 
 
@@ -12,9 +13,9 @@ int main() {
     
 
 
+
     /* finishers */
     finish_process_queues();
-
 
     return 0;
 }
