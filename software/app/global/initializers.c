@@ -1,11 +1,13 @@
-#define SYSTEM_MEMORY_BASE 73728 // 73728 bytes = 72 kbytes
+#define DEFAULT_PRIORITY '3'
 #define SYSTEM_MEMORY_TOTAL 1048576 // 1048576 bytes = 1024 mega bytes
+#define PROCESS_LIMIT 18446744073709551615U
 ProcessQueue* FE;
 ProcessQueue* FU1;
 ProcessQueue* FU2;
 ProcessQueue* FU3;
 ProcessQueue* FTR;
-unsigned long long int memory_allocated; // bytes
+MemoryPosition* MEMORY;
+unsigned long long int process_created;
 
 
 
@@ -18,14 +20,11 @@ void init_process_queues() {
 }
 
 
-void init_memory_usage() {
-    memory_allocated = SYSTEM_MEMORY_BASE;
+void init_memory() {
+    MEMORY = (MemoryPosition*)malloc(SYSTEM_MEMORY_TOTAL * sizeof(MemoryPosition));
 }
 
 
-void read_process_from_file() {
-    /*
-        TODO: Criar função para iniciar processos
-        lidos de um arquivo de entrada
-    */
+void init_process_created() {
+    process_created = 0;
 }
