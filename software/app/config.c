@@ -16,9 +16,6 @@
 #include "./resources/memory.c"
 #include "./resources/system.c"
 
-/* global */
-#include "./global/system.c"
-
 /* functions */
 #include "./functions/read_process_from_file.c"
 

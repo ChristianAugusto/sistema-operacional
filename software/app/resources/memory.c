@@ -26,6 +26,7 @@ boolean allocate_memory(unsigned long long int processId, unsigned long long int
     return true;
 }
 
+
 void deallocate_memory(unsigned long long int processId) {
     unsigned long long int i;
     for (i = 0; i < SYSTEM_MEMORY_TOTAL; i++) {
@@ -34,6 +35,7 @@ void deallocate_memory(unsigned long long int processId) {
         }
     }
 }
+
 
 void print_memory() {
     FILE* file = fopen("./app/tmp/memory.txt", "w");
@@ -47,6 +49,7 @@ void print_memory() {
         fclose(file);
     }
 }
+
 
 /*
     TODO: Desalocar memória usada pelo processo (recebendo endereços)
