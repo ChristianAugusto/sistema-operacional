@@ -1,8 +1,8 @@
 void test_process_queue(ProcessQueue* q) {
-    enqueue_process_queue(q, process_creator(DEFAULT_PRIORITY));
-    enqueue_process_queue(q, process_creator(DEFAULT_PRIORITY));
-    enqueue_process_queue(q, process_creator(DEFAULT_PRIORITY));
-    enqueue_process_queue(q, process_creator(DEFAULT_PRIORITY));
+    enqueue_process_queue(q, process_creator(SYSTEM_PROCESS_DEFAULT_PRIORITY));
+    enqueue_process_queue(q, process_creator(SYSTEM_PROCESS_DEFAULT_PRIORITY));
+    enqueue_process_queue(q, process_creator(SYSTEM_PROCESS_DEFAULT_PRIORITY));
+    enqueue_process_queue(q, process_creator(SYSTEM_PROCESS_DEFAULT_PRIORITY));
 
     print_process_queue(q);
     printf("--------------------------\n");
@@ -16,8 +16,8 @@ void test_process_queue(ProcessQueue* q) {
     printf("--------------------------\n");
 
 
-    enqueue_process_queue(q, process_creator(DEFAULT_PRIORITY));
-    enqueue_process_queue(q, process_creator(DEFAULT_PRIORITY));
+    enqueue_process_queue(q, process_creator(SYSTEM_PROCESS_DEFAULT_PRIORITY));
+    enqueue_process_queue(q, process_creator(SYSTEM_PROCESS_DEFAULT_PRIORITY));
 
 
     print_process_queue(q);
@@ -33,8 +33,8 @@ void test_process_queue(ProcessQueue* q) {
     print_process_queue(q);
 
 
-    // enqueue_process_queue(q, process_creator(DEFAULT_PRIORITY));
-    // enqueue_process_queue(q, process_creator(DEFAULT_PRIORITY));
-    // enqueue_process_queue(q, process_creator(DEFAULT_PRIORITY));
-    // enqueue_process_queue(q, process_creator(DEFAULT_PRIORITY));
+    // enqueue_process_queue(q, process_creator(SYSTEM_PROCESS_DEFAULT_PRIORITY));
+    // enqueue_process_queue(q, process_creator(SYSTEM_PROCESS_DEFAULT_PRIORITY));
+    // enqueue_process_queue(q, process_creator(SYSTEM_PROCESS_DEFAULT_PRIORITY));
+    // enqueue_process_queue(q, process_creator(SYSTEM_PROCESS_DEFAULT_PRIORITY));
 }

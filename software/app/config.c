@@ -4,21 +4,24 @@
 
 /* models */
 #include "./models/boolean.c"
-#include "./models/process.c"
-#include "./models/process-queue.c"
-
-/* resources */
-#include "./resources/memory.c"
 
 /* utils */
 
+/* constants */
+#include "./constants/system.c"
+
+/* resources */
+#include "./resources/process.c"
+#include "./resources/process-queue.c"
+#include "./resources/memory.c"
+#include "./resources/system.c"
+
 /* global */
-#include "./global/initializers.c"
-#include "./global/validators.c"
-#include "./global/finishers.c"
+#include "./global/system.c"
 
 /* functions */
 #include "./functions/read_process_from_file.c"
 
 /* tests */
 #include "./tests/process-queue.c"
+#include "./tests/memory.c"
