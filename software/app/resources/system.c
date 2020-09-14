@@ -41,8 +41,10 @@ void finish_memory() {
     free(MEMORY);
 }
 
-
-Process* process_creator(char pr) {
+/**
+ *  Criador de processos do sistema.
+ */
+Process* process_creator(char pr, boolean enqueue) {
     if (process_created > SYSTEM_PROCESS_LIMIT) {
         /*
             TODO: Finish program in this condition
@@ -50,5 +52,14 @@ Process* process_creator(char pr) {
         return NULL;
     }
 
-    return declare_process(process_created+1, pr);
+    Process* new_process = declare_process(process_created+1, pr);
+
+    if (enqueue) {
+        enqueue_process_queue(FE, new_process);
+
+        return NULL;
+    }
+    else {
+        return new_process;
+    }
 }

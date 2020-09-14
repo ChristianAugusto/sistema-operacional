@@ -11,7 +11,6 @@ int main() {
 
 
     /* tests */
-    test_memory();
 
 
 
