@@ -1,1 +1,0 @@
-#define DEFAULT_PRIORITY '3'
