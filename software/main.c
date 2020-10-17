@@ -3,20 +3,18 @@
 
 
 int main() {
-    /* initializers */
-    init_process_queues();
-    init_memory();
-    init_process_created();
+    initializers();
 
 
 
     /* tests */
+    
 
 
 
-    /* finishers */
-    finish_process_queues();
-    finish_memory();
+    finishers();
+
+
 
     return 0;
 }

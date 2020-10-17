@@ -38,7 +38,7 @@ void deallocate_memory(unsigned long long int processId) {
 
 
 void print_memory() {
-    FILE* file = fopen("./app/tmp/memory.txt", "w");
+    FILE* file = fopen("./app/logs/memory.log", "w");
 
     if (file != NULL) {
         unsigned long long int i;

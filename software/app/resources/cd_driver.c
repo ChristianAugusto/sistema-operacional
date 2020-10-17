@@ -1,3 +1,5 @@
-/*
-    TODO: Criar cd driver(s)
-*/
+typedef struct {
+    unsigned long long int processId;
+    boolean inUse;
+} CD_DRIVER;
+CD_DRIVER* CD_DRIVERS;
