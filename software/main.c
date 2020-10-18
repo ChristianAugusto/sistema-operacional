@@ -8,9 +8,10 @@ int main() {
 
 
     /* tests */
-    
+    // test_thread();
 
 
+    system_turnoff_watcher();
 
     finishers();
 
