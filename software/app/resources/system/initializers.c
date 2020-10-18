@@ -55,7 +55,13 @@ void init_process_created() {
 }
 
 
+void init_system_status() {
+    SYSTEM_STATUS = 2;
+}
+
+
 void initializers() {
+    init_system_status();
     init_cpus();
     init_memory();
     init_cd_drivers();

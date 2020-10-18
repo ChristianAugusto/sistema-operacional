@@ -2,7 +2,7 @@
  *  System dispatcher watcher: Verify if has process in FTR or FUs every 1 second.
  */
 void* dispatcher_watcher(void* args) {
-    while (SYSTEM_STATUS != SYSTEM_STATUS_ERROR) {
+    while (SYSTEM_STATUS != SYSTEM_STATUS_ERROR && SYSTEM_STATUS != SYSTEM_STATUS_TURN_OFF) {
         printf("Searching for process...\n");
 
         /*
@@ -22,7 +22,7 @@ void* dispatcher_watcher(void* args) {
  *  System distributor watcher: Verify if has process in FE every 1 second.
  */
 void* distributor_watcher(void* args) {
-    while (SYSTEM_STATUS != SYSTEM_STATUS_ERROR) {
+    while (SYSTEM_STATUS != SYSTEM_STATUS_ERROR && SYSTEM_STATUS != SYSTEM_STATUS_TURN_OFF) {
         printf("Searching for process to distribute...\n");
 
         /*
@@ -44,7 +44,7 @@ void* distributor_watcher(void* args) {
 void system_turnoff_watcher() {
     int i = 0;
 
-    while (SYSTEM_STATUS != SYSTEM_STATUS_ERROR) {
+    while (SYSTEM_STATUS != SYSTEM_STATUS_ERROR && SYSTEM_STATUS != SYSTEM_STATUS_TURN_OFF) {
         printf("Turn off system ?...\n");
 
         /*
@@ -52,7 +52,7 @@ void system_turnoff_watcher() {
         */
 
         if (++i == 10) {
-            SYSTEM_STATUS = SYSTEM_STATUS_ERROR;
+            SYSTEM_STATUS = SYSTEM_STATUS_TURN_OFF;
             sleep_execution(1500);
             break;
         }

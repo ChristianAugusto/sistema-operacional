@@ -1,9 +1,10 @@
 unsigned long long int PROCESS_CREATED;
 
 /*
-    0 = Normal
-    1 = Error
+    2 = Normal
+    5 = Error
+    0 = turn off
 
     Use the constants to compare the status
 */
-unsigned int SYSTEM_STATUS;
+unsigned short SYSTEM_STATUS;
