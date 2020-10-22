@@ -60,6 +60,7 @@ void dequeue_process_queue(ProcessQueue* q) {
 
     q->size--;
 
+    free(aux->id);
     free(aux);
 }
 
@@ -69,6 +70,10 @@ void print_process(Process* p, char* scape, char* division) {
     printf("%s", scape);
 
     printf("{\n");
+
+    printf("%s", scape);
+
+    printf("\tid: %s\n", p->id);
 
     printf("%s", scape);
 

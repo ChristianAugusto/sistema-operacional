@@ -51,7 +51,9 @@ void init_distributor_watcher() {
 
 
 void init_process_created() {
-    PROCESS_CREATED = 0;
+    PROCESS_CREATED = (char*)malloc(2*sizeof(char));
+    PROCESS_CREATED[0] = '0';
+    PROCESS_CREATED[1] = '\0';
 }
 
 

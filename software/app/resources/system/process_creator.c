@@ -2,14 +2,9 @@
  *  System process creator
  */
 Process* process_creator(char pr, boolean enqueue) {
-    if (PROCESS_CREATED > SYSTEM_PROCESS_LIMIT) {
-        /*
-            TODO: Finish program in this condition
-        */
-        return NULL;
-    }
+    PROCESS_CREATED = str_incrementIds(PROCESS_CREATED);
 
-    Process* new_process = declare_process(PROCESS_CREATED+1, pr);
+    Process* new_process = declare_process(str_copy(PROCESS_CREATED), pr);
 
     if (enqueue) {
         enqueue_process_queue(FE, new_process);

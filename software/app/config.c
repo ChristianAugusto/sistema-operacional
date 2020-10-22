@@ -8,6 +8,7 @@
 
 /* utils */
 #include "./utils/sleep_execution.c"
+#include "./utils/strings.c"
 
 /* constants */
 #include "./constants/system.c"

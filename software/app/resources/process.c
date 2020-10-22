@@ -1,5 +1,5 @@
 typedef struct process {
-    unsigned long long int id;
+    char* id;
     char priority;
     struct process * next;
 } Process;
@@ -10,7 +10,7 @@ typedef struct process {
  *  Process declare. Do not call this function directly.
  *  To create process, use process_creator.
  */
-Process* declare_process(unsigned long long int id, char pr) {
+Process* declare_process(char* id, char pr) {
     Process* p = (Process*)malloc(sizeof(Process));
 
     p->id = id;

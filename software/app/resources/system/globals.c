@@ -1,4 +1,4 @@
-unsigned long long int PROCESS_CREATED;
+char* PROCESS_CREATED;
 
 /*
     2 = Normal
