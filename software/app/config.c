@@ -4,7 +4,7 @@
 #include <pthread.h>
 
 /* types */
-#include "./types/boolean.c"
+#include "./types/bool.c"
 
 /* utils */
 #include "./utils/sleep_execution.c"

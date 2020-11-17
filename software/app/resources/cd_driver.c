@@ -1,5 +1,5 @@
 typedef struct {
     unsigned long long int processId;
-    boolean inUse;
+    bool inUse;
 } CD_DRIVER;
 CD_DRIVER* CD_DRIVERS;

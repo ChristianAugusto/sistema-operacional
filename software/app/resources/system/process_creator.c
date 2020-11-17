@@ -1,7 +1,7 @@
 /**
  *  System process creator
  */
-Process* process_creator(char pr, boolean enqueue) {
+Process* process_creator(char pr, bool enqueue) {
     PROCESS_CREATED = str_incrementIds(PROCESS_CREATED);
 
     Process* new_process = declare_process(str_copy(PROCESS_CREATED), pr);

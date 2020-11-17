@@ -6,7 +6,7 @@ unsigned long long int MEMORY_USED;
 
 
 
-boolean allocate_memory(unsigned long long int processId, unsigned long long int bytes) {
+bool allocate_memory(unsigned long long int processId, unsigned long long int bytes) {
     if (MEMORY_USED == SYSTEM_MEMORY_TOTAL || MEMORY_USED + bytes > SYSTEM_MEMORY_TOTAL) {
         return false;
     }

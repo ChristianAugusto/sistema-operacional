@@ -6,7 +6,7 @@ typedef struct {
 
 
 
-boolean empty_process_queue(ProcessQueue* q) {
+bool empty_process_queue(ProcessQueue* q) {
     return !q->head;
 }
 
