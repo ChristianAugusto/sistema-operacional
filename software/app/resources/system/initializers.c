@@ -1,5 +1,10 @@
 void init_cpus() {
     CPUS = (CPU*)malloc(CPUS_TOTAL * sizeof(CPU));
+
+    unsigned int i;
+    for (i = 0; i < CPUS_TOTAL; i++) {
+        pthread_create(&CPUS[i].dispatcher_thread_id, NULL, dispatcher_watcher, NULL);
+    }
 }
 
 
@@ -38,12 +43,6 @@ void init_process_queues() {
 }
 
 
-void init_dispatcher_watcher() {
-    pthread_t thread_id;
-    pthread_create(&thread_id, NULL, dispatcher_watcher, NULL);
-}
-
-
 void init_distributor_watcher() {
     pthread_t thread_id;
     pthread_create(&thread_id, NULL, distributor_watcher, NULL);
@@ -72,6 +71,5 @@ void initializers() {
     init_scanners();
     init_process_queues();
     init_process_created();
-    init_dispatcher_watcher();
     init_distributor_watcher();
 }
