@@ -42,9 +42,9 @@ Process* peek_process_queue(ProcessQueue* q) {
 }
 
 
-void dequeue_process_queue(ProcessQueue* q) {
+Process* dequeue_process_queue(ProcessQueue* q) {
     if (empty_process_queue(q)) {
-        return;
+        return NULL;
     }
 
 
@@ -60,28 +60,13 @@ void dequeue_process_queue(ProcessQueue* q) {
 
     q->size--;
 
-    free(aux->id);
-    free(aux);
+    return aux;
 }
 
 
-void print_process(Process* p, char* scape, char* division) {
-
-    printf("%s", scape);
-
-    printf("{\n");
-
-    printf("%s", scape);
-
-    printf("\tid: %s\n", p->id);
-
-    printf("%s", scape);
-
-    printf("\tpriority: %c\n", p->priority);
-
-    printf("%s", scape);
-
-    printf("}%s\n", division);
+void clean_process(Process* p) {
+    free(p->id);
+    free(p);
 }
 
 
@@ -92,22 +77,43 @@ void clean_process_queue(ProcessQueue* q) {
 }
 
 
-void print_process_queue(ProcessQueue* q) {
+void print_process_queue_default_output(ProcessQueue* q) {
     if (empty_process_queue(q)) {
-        printf("[]\n");
+        fprintf(SYSTEM_TRACKING_OUTPUT, "[]\n");
         return;
     }
 
 
-    printf("[\n");
+    fprintf(SYSTEM_TRACKING_OUTPUT, "[\n");
 
     Process* aux = q->head;
 
     while (aux != NULL) {
-        print_process(aux, "\t", ",");
+        print_process_default_output(aux, "\t", ",");
 
         aux = aux->next;
     }
 
     printf("]\n");
+}
+
+
+void print_process_queue_system_tracking_output(ProcessQueue* q) {
+    if (empty_process_queue(q)) {
+        fprintf(SYSTEM_TRACKING_OUTPUT, "[]\n");
+        return;
+    }
+
+
+    fprintf(SYSTEM_TRACKING_OUTPUT, "[\n");
+
+    Process* aux = q->head;
+
+    while (aux != NULL) {
+        print_process_system_tracking_output(aux, "\t", ",");
+
+        aux = aux->next;
+    }
+
+    fprintf(SYSTEM_TRACKING_OUTPUT, "]\n");
 }

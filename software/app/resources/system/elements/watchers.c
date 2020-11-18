@@ -2,17 +2,17 @@
  *  System dispatcher watcher: Verify if has process in FTR or FUs every 1 second.
  */
 void* dispatcher_watcher(void* args) {
+    fprintf(SYSTEM_TRACKING_OUTPUT, "Starting system dispatcher watcher\n");
+
     while (SYSTEM_STATUS != SYSTEM_STATUS_ERROR && SYSTEM_STATUS != SYSTEM_STATUS_TURN_OFF) {
         printf("Searching for process...\n");
 
         /*
             TODO: Dispatcher algorithm
         */
-
-        sleep_execution(1000);
     }
 
-    printf("Stopping system dispatcher watcher\n");
+    fprintf(SYSTEM_TRACKING_OUTPUT, "Stopping system dispatcher watcher\n");
 
     return NULL;
 }
@@ -22,17 +22,24 @@ void* dispatcher_watcher(void* args) {
  *  System distributor watcher: Verify if has process in FE every 1 second.
  */
 void* distributor_watcher(void* args) {
+    fprintf(SYSTEM_TRACKING_OUTPUT, "Starting system distributor watcher\n");
+
     while (SYSTEM_STATUS != SYSTEM_STATUS_ERROR && SYSTEM_STATUS != SYSTEM_STATUS_TURN_OFF) {
         printf("Searching for process to distribute...\n");
 
-        /*
-            TODO: Distributor algorithm
-        */
+        Process* p = dequeue_process_queue(FE);
 
-        sleep_execution(1000);
+        if (p->priority == SYSTEM_PROCESS_REAL_TIME_PRIORITY) {
+            fprintf(SYSTEM_TRACKING_OUTPUT, "Sending process %s to FTR\n", p->id);
+            enqueue_process_queue(FTR, p);
+        }
+        else {
+            fprintf(SYSTEM_TRACKING_OUTPUT, "Sending process %s to FU\n", p->id);
+            enqueue_process_queue(FU, p);
+        }
     }
 
-    printf("Stopping system distributor watcher\n");
+    fprintf(SYSTEM_TRACKING_OUTPUT, "Stopping system distributor watcher\n");
 
     return NULL;
 }
@@ -51,14 +58,9 @@ void system_turnoff_watcher() {
             TODO: System turnoff algorithm
         */
 
-        if (++i == 10) {
-            SYSTEM_STATUS = SYSTEM_STATUS_TURN_OFF;
-            sleep_execution(1500);
-            break;
-        }
-
+        SYSTEM_STATUS = SYSTEM_STATUS_TURN_OFF;
         sleep_execution(1000);
     }
 
-    printf("System turned off\n");
+    fprintf(SYSTEM_TRACKING_OUTPUT, "System turned off\n");
 }

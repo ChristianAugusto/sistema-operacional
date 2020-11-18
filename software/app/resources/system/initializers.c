@@ -1,3 +1,8 @@
+void init_logs() {
+    SYSTEM_TRACKING_OUTPUT = fopen("./app/logs/system-tracking.log", "w");
+}
+
+
 void init_cpus() {
     CPUS = (CPU*)malloc(CPUS_TOTAL * sizeof(CPU));
 
@@ -36,10 +41,10 @@ void init_scanners() {
 
 void init_process_queues() {
     FE = declare_process_queue();
-    UQ = declare_process_queue();
-    UQ2 = declare_process_queue();
-    UQ3 = declare_process_queue();
-    RTQ = declare_process_queue();
+    FU = declare_process_queue();
+    FU2 = declare_process_queue();
+    FU3 = declare_process_queue();
+    FTR = declare_process_queue();
 }
 
 
@@ -62,6 +67,7 @@ void init_system_status() {
 
 
 void initializers() {
+    init_logs();
     init_system_status();
     init_cpus();
     init_memory();
@@ -72,4 +78,6 @@ void initializers() {
     init_process_queues();
     init_process_created();
     init_distributor_watcher();
+
+    fprintf(SYSTEM_TRACKING_OUTPUT, "System initialized with success\n");
 }

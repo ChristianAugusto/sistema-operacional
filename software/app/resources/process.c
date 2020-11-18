@@ -18,3 +18,41 @@ Process* declare_process(char* id, char pr) {
 
     return p;
 }
+
+
+void print_process_default_output(Process* p, char* scape, char* division) {
+    printf("%s", scape);
+
+    printf("{\n");
+
+    printf("%s", scape);
+
+    printf("\tid: %s\n", p->id);
+
+    printf("%s", scape);
+
+    printf("\tpriority: %c\n", p->priority);
+
+    printf("%s", scape);
+
+    printf("}%s\n", division);
+}
+
+
+void print_process_system_tracking_output(Process* p, char* scape, char* division) {
+    fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
+
+    fprintf(SYSTEM_TRACKING_OUTPUT, "{\n");
+
+    fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
+
+    fprintf(SYSTEM_TRACKING_OUTPUT, "\tid: %s\n", p->id);
+
+    fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
+
+    fprintf(SYSTEM_TRACKING_OUTPUT, "\tpriority: %c\n", p->priority);
+
+    fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
+
+    fprintf(SYSTEM_TRACKING_OUTPUT, "}%s\n", division);
+}

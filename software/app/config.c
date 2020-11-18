@@ -13,6 +13,9 @@
 /* constants */
 #include "./constants/system.c"
 
+/* logs */
+#include "./resources/system/elements/logs.c"
+
 /* resources */
 #include "./resources/cpu.c"
 #include "./resources/memory.c"
