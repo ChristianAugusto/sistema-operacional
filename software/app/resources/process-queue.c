@@ -6,7 +6,7 @@ typedef struct {
 
 
 
-bool empty_process_queue(ProcessQueue* q) {
+bool process_queue_is_empty(ProcessQueue* q) {
     return !q->head;
 }
 
@@ -22,10 +22,15 @@ ProcessQueue* declare_process_queue() {
 }
 
 
+void clean_process_queue(ProcessQueue* q) {
+    free(q);
+}
+
+
 void enqueue_process_queue(ProcessQueue* q, Process* p) {
     p->next = NULL;
 
-    if (empty_process_queue(q)) {
+    if (process_queue_is_empty(q)) {
         q->head = p;
     }
     else {
@@ -43,7 +48,7 @@ Process* peek_process_queue(ProcessQueue* q) {
 
 
 Process* dequeue_process_queue(ProcessQueue* q) {
-    if (empty_process_queue(q)) {
+    if (process_queue_is_empty(q)) {
         return NULL;
     }
 
@@ -70,15 +75,15 @@ void clean_process(Process* p) {
 }
 
 
-void clean_process_queue(ProcessQueue* q) {
-    while (!empty_process_queue(q)) {
+void empty_process_queue(ProcessQueue* q) {
+    while (!process_queue_is_empty(q)) {
         dequeue_process_queue(q);
     }
 }
 
 
 void print_process_queue_default_output(ProcessQueue* q) {
-    if (empty_process_queue(q)) {
+    if (process_queue_is_empty(q)) {
         fprintf(SYSTEM_TRACKING_OUTPUT, "[]\n");
         return;
     }
@@ -99,7 +104,7 @@ void print_process_queue_default_output(ProcessQueue* q) {
 
 
 void print_process_queue_system_tracking_output(ProcessQueue* q) {
-    if (empty_process_queue(q)) {
+    if (process_queue_is_empty(q)) {
         fprintf(SYSTEM_TRACKING_OUTPUT, "[]\n");
         return;
     }

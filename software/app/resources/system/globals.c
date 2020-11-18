@@ -1,10 +1,14 @@
 char* PROCESS_CREATED;
 
 /*
-    2 = Normal
-    5 = Error
-    0 = turn off
+    0 = Normal
+    1 = Turning off
+    2 = Finished
+    3 = Turned off
+    4 = Error
 
     Use the constants to compare the status
 */
 unsigned short SYSTEM_STATUS;
+
+bool DISTRIBUTOR_ON;

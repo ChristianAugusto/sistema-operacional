@@ -8,7 +8,7 @@ void init_cpus() {
 
     unsigned int i;
     for (i = 0; i < CPUS_TOTAL; i++) {
-        pthread_create(&CPUS[i].dispatcher_thread_id, NULL, dispatcher_watcher, NULL);
+        pthread_create(&CPUS[i].dispatcher_thread_id, NULL, dispatcher_watcher, &CPUS[i]);
     }
 }
 
@@ -62,14 +62,13 @@ void init_process_created() {
 
 
 void init_system_status() {
-    SYSTEM_STATUS = 2;
+    SYSTEM_STATUS = SYSTEM_STATUS_NORMAL;
 }
 
 
 void initializers() {
     init_logs();
     init_system_status();
-    init_cpus();
     init_memory();
     init_cd_drivers();
     init_modems();
@@ -78,6 +77,8 @@ void initializers() {
     init_process_queues();
     init_process_created();
     init_distributor_watcher();
+    init_cpus();
 
+    printf("System initialized with success\n");
     fprintf(SYSTEM_TRACKING_OUTPUT, "System initialized with success\n");
 }
