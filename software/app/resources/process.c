@@ -1,6 +1,14 @@
 typedef struct process {
     char* id;
+    char* tempoDeChegada;
     char priority;
+    unsigned int processorTime;
+    unsigned long long int memory;
+    unsigned short qtdPrinters;
+    unsigned short qtdScanners;
+    unsigned short qtdScanners;
+    unsigned short qtdModems;
+    unsigned short qtdCds;
     struct process * next;
 } Process;
 

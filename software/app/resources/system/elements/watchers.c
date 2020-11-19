@@ -10,11 +10,41 @@ void* dispatcher_watcher(void* arg) {
     cpu->dispatcherOn = true;
 
     while (SYSTEM_STATUS == SYSTEM_STATUS_NORMAL) {
-        printf("Searching for process...\n");
+        Process* p = NULL;
 
-        /*
-            TODO: Dispatcher algorithm
-        */
+        printf("Searching for process in FTR...\n");
+        p = dequeue_process_queue(FTR);
+        if (p != NULL) {
+            if (system_memory_will_have_space(p->)) {
+                
+            }
+
+            continue;
+        }
+
+        printf("Searching for process in FU...\n");
+        p = dequeue_process_queue(FU);
+        if (p != NULL) {
+
+
+            continue;
+        }
+
+        printf("Searching for process in FU2...\n");
+        p = dequeue_process_queue(FU2);
+        if (p != NULL) {
+
+
+            continue;
+        }
+
+        printf("Searching for process in FU3...\n");
+        p = dequeue_process_queue(FU3);
+        if (p != NULL) {
+
+
+            continue;
+        }
     }
 
     fprintf(SYSTEM_TRACKING_OUTPUT, "Stopping system dispatcher watcher\n");
