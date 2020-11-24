@@ -1,5 +1,5 @@
 typedef struct {
-    unsigned long long int processId;
+    Process* running_process;
     bool inUse;
     bool dispatcherOn;
     pthread_t dispatcher_thread_id;

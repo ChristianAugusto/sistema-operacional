@@ -15,8 +15,17 @@ void* dispatcher_watcher(void* arg) {
         printf("Searching for process in FTR...\n");
         p = dequeue_process_queue(FTR);
         if (p != NULL) {
-            if (system_memory_will_have_space(p->qtdMemory)) {
-                
+            bool memory_allocated = allocate_memory(p->id, p->qtdMemory);
+
+            if (memory_allocated) {
+                /*
+                    TODO: Executar até o final sem preempção
+                */
+            }
+            else {
+                /*
+                    TODO: Preempção e desalocação
+                */
             }
 
             continue;
@@ -25,7 +34,21 @@ void* dispatcher_watcher(void* arg) {
         printf("Searching for process in FU...\n");
         p = dequeue_process_queue(FU);
         if (p != NULL) {
+            bool memory_allocated = allocate_memory(p->id, p->qtdMemory);
 
+            if (memory_allocated) {
+                /*
+                    TODO: Executar o processo no tempo do quantum e reduzir
+                        o tempo restante de processamento e realizar a política
+                        de feedback (mandar para a FU2)
+                */
+            }
+            else {
+                /*
+                    TODO: Executar o processo no tempo do quantum e reduzir
+                        o tempo restante de processamento
+                */
+            }
 
             continue;
         }
@@ -33,7 +56,21 @@ void* dispatcher_watcher(void* arg) {
         printf("Searching for process in FU2...\n");
         p = dequeue_process_queue(FU2);
         if (p != NULL) {
+            bool memory_allocated = allocate_memory(p->id, p->qtdMemory);
 
+            if (memory_allocated) {
+                /*
+                    TODO: Executar o processo no tempo do quantum e reduzir
+                        o tempo restante de processamento e realizar a política
+                        de feedback (mandar para a FU3)
+                */
+            }
+            else {
+                /*
+                    TODO: Executar o processo no tempo do quantum e reduzir
+                        o tempo restante de processamento
+                */
+            }
 
             continue;
         }
@@ -41,7 +78,21 @@ void* dispatcher_watcher(void* arg) {
         printf("Searching for process in FU3...\n");
         p = dequeue_process_queue(FU3);
         if (p != NULL) {
+            bool memory_allocated = allocate_memory(p->id, p->qtdMemory);
 
+            if (memory_allocated) {
+                /*
+                    TODO: Executar o processo no tempo do quantum e reduzir
+                        o tempo restante de processamento e realizar a política
+                        de feedback (mandar para a FU3)
+                */
+            }
+            else {
+                /*
+                    TODO: Executar o processo no tempo do quantum e reduzir
+                        o tempo restante de processamento
+                */
+            }
 
             continue;
         }
