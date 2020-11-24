@@ -14,7 +14,7 @@
 #include "./constants/system.c"
 
 /* logs */
-#include "./resources/system/elements/logs.c"
+#include "./resources/system/logs.c"
 
 /* resources */
 #include "./resources/cpu.c"
@@ -28,8 +28,8 @@
 
 /* resources.system */
 #include "./resources/system/globals.c"
-#include "./resources/system/elements/process_queues.c"
-#include "./resources/system/elements/watchers.c"
+#include "./resources/system/process_queues.c"
+#include "./resources/system/watchers.c"
 #include "./resources/system/initializers.c"
 #include "./resources/system/finishers.c"
 #include "./resources/system/process_creator.c"
