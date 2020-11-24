@@ -6,9 +6,9 @@ void test_memory() {
     deallocate_memory("2");
 
     allocate_memory("4", 20);
-    // allocate_memory("5", 20);
+    allocate_memory("5", 20);
 
-    // deallocate_memory("3");
+    deallocate_memory("3");
 
     print_memory();
 }

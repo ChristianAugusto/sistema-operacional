@@ -33,8 +33,7 @@ bool allocate_memory(char* processId, unsigned long long int bytes) {
                     available_bytes++;
                 }
                 else {
-                    i = j;
-                    continue;
+                    break;
                 }
             }
 
@@ -47,6 +46,8 @@ bool allocate_memory(char* processId, unsigned long long int bytes) {
 
                 return true;
             }
+
+            i = j;
         }
     }
 
