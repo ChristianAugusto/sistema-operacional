@@ -15,6 +15,12 @@ void init_cpus() {
 
 void init_memory() {
     MEMORY = (MemoryPosition*)malloc(SYSTEM_MEMORY_TOTAL * sizeof(MemoryPosition));
+
+    unsigned long long int i;
+    for (i = 0; i < SYSTEM_MEMORY_TOTAL; i++) {
+        MEMORY[i].processId = NULL;
+    }
+
     MEMORY_USED = 0;
 }
 

@@ -15,7 +15,7 @@ void* dispatcher_watcher(void* arg) {
         printf("Searching for process in FTR...\n");
         p = dequeue_process_queue(FTR);
         if (p != NULL) {
-            if (system_memory_will_have_space(p->)) {
+            if (system_memory_will_have_space(p->qtdMemory)) {
                 
             }
 

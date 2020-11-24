@@ -1,4 +1,8 @@
 long long int str_size(char* str) {
+    if (str == NULL) {
+        return 0;
+    }
+
     long long int size;
 
     for (size = 0; str[size] != '\0'; size++);
@@ -6,7 +10,12 @@ long long int str_size(char* str) {
     return size;
 }
 
+
 char* str_copy(char* str) {
+    if (str == NULL) {
+        return NULL;
+    }
+
     long long int strSize = str_size(str) + 1;
 
     char* newStr = (char*)malloc(strSize * sizeof(char));
@@ -21,11 +30,18 @@ char* str_copy(char* str) {
     return newStr;
 }
 
+
 int str_charToInt(char c) {
     return c - '0';
 }
 
+
 char* str_incrementIds(char* oldId) {
+    if (oldId == NULL) {
+        return NULL;
+    }
+
+
     long long int oldIdSize = str_size(oldId);
 
     long long int i;
@@ -57,4 +73,27 @@ char* str_incrementIds(char* oldId) {
     free(oldId);
 
     return newId;
+}
+
+
+bool str_equals(char* str1, char* str2) {
+    if (str1 == NULL || str2 == NULL) {
+        return false;
+    }
+
+
+    long long int str1_size = str_size(str1);
+
+    if (str1_size != str_size(str2)) {
+        return false;
+    }
+
+    for (long long int i = 0; i < str1_size; i++) {
+        if (str1[i] != str2[i]) {
+            return false;
+        }
+    }
+
+
+    return true;
 }
