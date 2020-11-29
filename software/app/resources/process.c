@@ -13,6 +13,12 @@ typedef struct Process {
 
 
 
+void clean_process(Process* p) {
+    free(p->id);
+    free(p);
+}
+
+
 /**
  *  Process declare. Do not call this function directly.
  *  To create process, use process_creator.

@@ -69,11 +69,6 @@ Process* dequeue_process_queue(ProcessQueue* q) {
 }
 
 
-void clean_process(Process* p) {
-    free(p->id);
-    free(p);
-}
-
 
 void empty_process_queue(ProcessQueue* q) {
     while (!process_queue_is_empty(q)) {

@@ -72,18 +72,31 @@ void init_system_status() {
 }
 
 
+void init_memory_tasks_queue() {
+    MTQ = declare_memory_task_queue();
+}
+
+
+void init_memory_task_watcher() {
+    pthread_t thread_id;
+    pthread_create(&thread_id, NULL, memory_task_watcher, NULL);
+}
+
+
 void initializers() {
     init_logs();
-    init_system_status();
     init_memory();
-    init_cd_drivers();
     init_modems();
-    init_printers();
+    init_cd_drivers();
     init_scanners();
-    init_process_queues();
+    init_printers();
     init_process_created();
-    init_distributor_watcher();
+    init_process_queues();
+    init_memory_tasks_queue();
+    init_memory_task_watcher();
     init_cpus();
+    init_distributor_watcher();
+    init_system_status();
 
     printf("System initialized with success\n");
     fprintf(SYSTEM_TRACKING_OUTPUT, "System initialized with success\n");

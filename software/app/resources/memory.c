@@ -4,17 +4,6 @@ typedef struct {
 MemoryPosition* MEMORY;
 unsigned long long int MEMORY_USED;
 
-typedef struct MemoryTask {
-    /*
-        1 - allocate_memory
-        2 - deallocate_memory
-        3 - deallocate_memory - allocate_memory
-    */
-    unsigned short actionType;
-    struct MemoryTask * next;
-} MemoryTask;
-
-
 
 
 bool system_memory_is_full() {
@@ -97,34 +86,4 @@ void print_memory() {
 
         fclose(file);
     }
-}
-
-
-void print_memory_task_default_output(MemoryTask* mt, char* scape, char* division) {
-    printf("%s", scape);
-
-    printf("{\n");
-
-    printf("%s", scape);
-
-    printf("\actionType: %u\n", mt->actionType);
-
-    printf("%s", scape);
-
-    printf("}%s\n", division);
-}
-
-
-void print_memory_task_system_tracking_output(MemoryTask* mt, char* scape, char* division) {
-    fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
-
-    fprintf(SYSTEM_TRACKING_OUTPUT, "{\n");
-
-    fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
-
-    fprintf(SYSTEM_TRACKING_OUTPUT, "\actionType: %u\n", mt->actionType);
-
-    fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
-
-    fprintf(SYSTEM_TRACKING_OUTPUT, "}%s\n", division);
 }

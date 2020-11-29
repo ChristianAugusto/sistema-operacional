@@ -21,6 +21,7 @@
 #include "./resources/process-queue.c"
 #include "./resources/cpu.c"
 #include "./resources/memory.c"
+#include "./resources/memory-task.c"
 #include "./resources/memory-task-queue.c"
 #include "./resources/cd_driver.c"
 #include "./resources/modem.c"
