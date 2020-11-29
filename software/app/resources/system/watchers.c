@@ -15,7 +15,8 @@ void* dispatcher_watcher(void* arg) {
         printf("Searching for process in FTR...\n");
         p = dequeue_process_queue(FTR);
         if (p != NULL) {
-            bool memory_allocated = allocate_memory(p->id, p->qtdMemory);
+            // Alocar memória
+            bool memory_allocated = true;
 
             if (memory_allocated) {
                 /*
@@ -34,7 +35,8 @@ void* dispatcher_watcher(void* arg) {
         printf("Searching for process in FU...\n");
         p = dequeue_process_queue(FU);
         if (p != NULL) {
-            bool memory_allocated = allocate_memory(p->id, p->qtdMemory);
+            // Alocar memória
+            bool memory_allocated = true;
 
             if (memory_allocated) {
                 /*
@@ -56,7 +58,8 @@ void* dispatcher_watcher(void* arg) {
         printf("Searching for process in FU2...\n");
         p = dequeue_process_queue(FU2);
         if (p != NULL) {
-            bool memory_allocated = allocate_memory(p->id, p->qtdMemory);
+            // Alocar memória
+            bool memory_allocated = true;
 
             if (memory_allocated) {
                 /*
@@ -78,7 +81,8 @@ void* dispatcher_watcher(void* arg) {
         printf("Searching for process in FU3...\n");
         p = dequeue_process_queue(FU3);
         if (p != NULL) {
-            bool memory_allocated = allocate_memory(p->id, p->qtdMemory);
+            // Alocar memória
+            bool memory_allocated = true;
 
             if (memory_allocated) {
                 /*

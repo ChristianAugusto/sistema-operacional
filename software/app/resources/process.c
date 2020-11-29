@@ -1,14 +1,14 @@
-typedef struct process {
+typedef struct Process {
     char* id;
-    char* tempoDeChegada;
     char priority;
-    unsigned int processorTime;
+    unsigned int processingTime;
+    unsigned int processedTime;
     unsigned long long int qtdMemory;
     unsigned short qtdPrinters;
     unsigned short qtdScanners;
     unsigned short qtdModems;
     unsigned short qtdCds;
-    struct process * next;
+    struct Process * next;
 } Process;
 
 
@@ -17,11 +17,23 @@ typedef struct process {
  *  Process declare. Do not call this function directly.
  *  To create process, use process_creator.
  */
-Process* declare_process(char* id, char pr) {
+Process* declare_process(
+    char* id, char priority, unsigned int processingTime,
+    unsigned long long int qtdMemory, unsigned short qtdPrinters,
+    unsigned short qtdScanners, unsigned short qtdModems, unsigned short qtdCds
+) {
     Process* p = (Process*)malloc(sizeof(Process));
 
     p->id = id;
-    p->priority = pr;
+    p->priority = priority;
+    p->processingTime = processingTime;
+    p->processedTime = 0;
+    p->qtdMemory = qtdMemory;
+    p->qtdPrinters = qtdPrinters;
+    p->qtdScanners = qtdScanners;
+    p->qtdModems = qtdModems;
+    p->qtdCds = qtdCds;
+    p->next = NULL;
 
     return p;
 }

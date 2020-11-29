@@ -17,14 +17,15 @@
 #include "./resources/system/logs.c"
 
 /* resources */
+#include "./resources/process.c"
+#include "./resources/process-queue.c"
 #include "./resources/cpu.c"
 #include "./resources/memory.c"
+#include "./resources/memory-task-queue.c"
 #include "./resources/cd_driver.c"
 #include "./resources/modem.c"
 #include "./resources/printer.c"
 #include "./resources/scanner.c"
-#include "./resources/process.c"
-#include "./resources/process-queue.c"
 
 /* resources.system */
 #include "./resources/system/globals.c"

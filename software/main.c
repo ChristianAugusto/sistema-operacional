@@ -8,9 +8,7 @@ int main() {
 
 
     /* tests */
-    process_creator('3', true);
-    process_creator('3', true);
-    process_creator('3', true);
+    
 
 
 
