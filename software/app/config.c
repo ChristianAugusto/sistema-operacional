@@ -36,6 +36,7 @@
 #include "./resources/system/dispatcher-watcher.c"
 #include "./resources/system/distributor-watcher.c"
 #include "./resources/system/memory-task-watcher.c"
+#include "./resources/system/peripherals-task-watcher.c"
 #include "./resources/system/system-turnoff-watcher.c"
 #include "./resources/system/initializers.c"
 #include "./resources/system/finishers.c"

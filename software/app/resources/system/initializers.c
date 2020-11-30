@@ -73,6 +73,11 @@ void init_system_status() {
 }
 
 
+void init_running_memory_task() {
+    RUNNING_MEMORY_TASK = NULL;
+}
+
+
 void init_memory_tasks_queue() {
     MTQ = declare_memory_task_queue();
 }
@@ -83,8 +88,20 @@ void init_memory_task_watcher() {
     pthread_create(&thread_id, NULL, memory_task_watcher, NULL);
 }
 
-void init_running_memory_task() {
-    RUNNING_MEMORY_TASK = NULL;
+
+void init_running_peripherals_task() {
+    RUNNING_PERIPHERALS_TASK = NULL;
+}
+
+
+void init_peripherals_tasks_queue() {
+    PTQ = declare_peripherals_task_queue();
+}
+
+
+void init_peripherals_task_watcher() {
+    pthread_t thread_id;
+    pthread_create(&thread_id, NULL, peripherals_task_watcher, NULL);
 }
 
 
@@ -97,8 +114,12 @@ void initializers() {
     init_printers();
     init_process_created();
     init_process_queues();
+    init_running_memory_task();
     init_memory_tasks_queue();
     init_memory_task_watcher();
+    init_running_peripherals_task();
+    init_peripherals_tasks_queue();
+    init_peripherals_task_watcher();
     init_cpus();
     init_distributor_watcher();
     init_system_status();
