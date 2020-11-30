@@ -3,12 +3,13 @@ typedef struct Process {
     char priority;
     unsigned int arrivalTime;
     unsigned int processingTime;
-    unsigned int processedTime;
     unsigned long long int qtdMemory;
     unsigned short qtdPrinters;
     unsigned short qtdScanners;
     unsigned short qtdModems;
     unsigned short qtdCds;
+    unsigned int processedTime;
+    unsigned int curentProcessQueueId;
     struct Process * next;
 } Process;
 
@@ -35,12 +36,12 @@ Process* declare_process(
     p->priority = priority;
     p->arrivalTime = arrivalTime;
     p->processingTime = processingTime;
-    p->processedTime = 0;
     p->qtdMemory = qtdMemory;
     p->qtdPrinters = qtdPrinters;
     p->qtdScanners = qtdScanners;
     p->qtdModems = qtdModems;
     p->qtdCds = qtdCds;
+    p->processedTime = 0;
     p->next = NULL;
 
     return p;

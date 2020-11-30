@@ -38,23 +38,65 @@ void* dispatcher_watcher(void* arg) {
                 fprintf(SYSTEM_TRACKING_OUTPUT, "Running process %s\n", p->id);
                 sleep_execution(p->processingTime);
 
+                cpu->running_process = EMPTY_CPU_RUNNING_PROCESS;
+
                 mt = declare_memory_task(
                     MEMORY_TASK_DEALLOCATE, str_copy(p->id), 0U, true
                 );
                 enqueue_memory_task_queue(MTQ, mt);
 
                 p->processedTime = p->processingTime;
-                cpu->running_process = EMPTY_CPU_RUNNING_PROCESS;
 
                 printf("Finishing process %s in FTR\n", p->id);
                 fprintf(SYSTEM_TRACKING_OUTPUT, "Finishing process %s in FTR\n", p->id);
                 clean_process(p);
             }
             else {
-                printf("Real time process and system without enough memory\n");
-                /*
-                    TODO: Preempção e desalocação
-                */
+                printf("Real time process and system without enough memory to allocate %s\n", p->id);
+                fprintf(SYSTEM_TRACKING_OUTPUT,
+                    "Real time process and system without enough memory to allocate %s\n", p->id, p->id);
+
+                mt = declare_memory_task(
+                    MEMORY_TASK_DEALLOCATE_TO_ALLOCATE, str_copy(p->id), p->qtdMemory, false
+                );
+                enqueue_memory_task_queue(MTQ, mt);
+
+                while (mt->success == NULL && MEMORY_TASK_WATCHER_ON);
+
+                if (mt->success == NULL) {
+                    break;
+                }
+
+                bool memory_allocated = *(mt->success);
+
+                if (memory_allocated) {
+                    cpu->running_process = p;
+
+                    printf("Running process after deallocate to allocate %s\n", p->id);
+                    fprintf(SYSTEM_TRACKING_OUTPUT,
+                        "Running process after deallocate to allocate %s\n", p->id);
+                    sleep_execution(p->processingTime);
+
+                    cpu->running_process = EMPTY_CPU_RUNNING_PROCESS;
+
+                    mt = declare_memory_task(
+                        MEMORY_TASK_DEALLOCATE, str_copy(p->id), 0U, true
+                    );
+                    enqueue_memory_task_queue(MTQ, mt);
+
+                    p->processedTime = p->processingTime;
+
+                    printf("Finishing process after deallocate to allocate %s in FTR\n", p->id);
+                    fprintf(SYSTEM_TRACKING_OUTPUT,
+                        "Finishing process after deallocate to allocate %s in FTR\n", p->id);
+                    clean_process(p);
+                }
+                else {
+                    printf("Memory watcher can not deallocate to allocate, resending process %s to FTR\n", p->id);
+                    fprintf(SYSTEM_TRACKING_OUTPUT,
+                        "Memory watcher can not deallocate to allocate, resending process %s to FTR\n", p->id);
+                    enqueue_process_queue(FTR, p);
+                }
             }
 
             continue;
@@ -83,7 +125,16 @@ void* dispatcher_watcher(void* arg) {
 
                 printf("Running process %s\n", p->id);
                 fprintf(SYSTEM_TRACKING_OUTPUT, "Running process %s\n", p->id);
+
+                if (cpu->running_process == EMPTY_CPU_RUNNING_PROCESS) {
+                    continue;
+                }
                 sleep_execution(QUANTUM);
+                if (cpu->running_process == EMPTY_CPU_RUNNING_PROCESS) {
+                    continue;
+                }
+
+                cpu->running_process = EMPTY_CPU_RUNNING_PROCESS;
 
                 mt = declare_memory_task(
                     MEMORY_TASK_DEALLOCATE, str_copy(p->id), 0U, true
@@ -91,7 +142,6 @@ void* dispatcher_watcher(void* arg) {
                 enqueue_memory_task_queue(MTQ, mt);
 
                 p->processedTime += QUANTUM;
-                cpu->running_process = EMPTY_CPU_RUNNING_PROCESS;
 
                 if (p->processedTime >= p->processingTime) {
                     printf("Finishing process %s in FU\n", p->id);
@@ -101,6 +151,7 @@ void* dispatcher_watcher(void* arg) {
                 else {
                     printf("Sending process %s to FU2\n", p->id);
                     fprintf(SYSTEM_TRACKING_OUTPUT, "Sending process %s to FU2\n", p->id);
+                    p->curentProcessQueueId = FU2_ID;
                     enqueue_process_queue(FU2, p);
                 }
             }
@@ -136,7 +187,16 @@ void* dispatcher_watcher(void* arg) {
 
                 printf("Running process %s\n", p->id);
                 fprintf(SYSTEM_TRACKING_OUTPUT, "Running process %s\n", p->id);
+
+                if (cpu->running_process == EMPTY_CPU_RUNNING_PROCESS) {
+                    continue;
+                }
                 sleep_execution(QUANTUM);
+                if (cpu->running_process == EMPTY_CPU_RUNNING_PROCESS) {
+                    continue;
+                }
+
+                cpu->running_process = EMPTY_CPU_RUNNING_PROCESS;
 
                 mt = declare_memory_task(
                     MEMORY_TASK_DEALLOCATE, str_copy(p->id), 0U, true
@@ -144,7 +204,6 @@ void* dispatcher_watcher(void* arg) {
                 enqueue_memory_task_queue(MTQ, mt);
 
                 p->processedTime += QUANTUM;
-                cpu->running_process = EMPTY_CPU_RUNNING_PROCESS;
 
                 if (p->processedTime >= p->processingTime) {
                     printf("Finishing process %s in FU2\n", p->id);
@@ -154,6 +213,7 @@ void* dispatcher_watcher(void* arg) {
                 else {
                     printf("Sending process %s to FU3\n", p->id);
                     fprintf(SYSTEM_TRACKING_OUTPUT, "Sending process %s to FU3\n", p->id);
+                    p->curentProcessQueueId = FU3_ID;
                     enqueue_process_queue(FU3, p);
                 }
             }
@@ -189,7 +249,16 @@ void* dispatcher_watcher(void* arg) {
 
                 printf("Running process %s\n", p->id);
                 fprintf(SYSTEM_TRACKING_OUTPUT, "Running process %s\n", p->id);
+
+                if (cpu->running_process == EMPTY_CPU_RUNNING_PROCESS) {
+                    continue;
+                }
                 sleep_execution(QUANTUM);
+                if (cpu->running_process == EMPTY_CPU_RUNNING_PROCESS) {
+                    continue;
+                }
+
+                cpu->running_process = EMPTY_CPU_RUNNING_PROCESS;
 
                 mt = declare_memory_task(
                     MEMORY_TASK_DEALLOCATE, str_copy(p->id), 0U, true
@@ -197,7 +266,6 @@ void* dispatcher_watcher(void* arg) {
                 enqueue_memory_task_queue(MTQ, mt);
 
                 p->processedTime += QUANTUM;
-                cpu->running_process = EMPTY_CPU_RUNNING_PROCESS;
 
                 if (p->processedTime >= p->processingTime) {
                     printf("Finishing process %s in FU3\n", p->id);
@@ -244,10 +312,12 @@ void* distributor_watcher(void* arg) {
 
             if (p->priority == SYSTEM_PROCESS_REAL_TIME_PRIORITY) {
                 fprintf(SYSTEM_TRACKING_OUTPUT, "Sending process %s to FTR\n", p->id);
+                p->curentProcessQueueId = FTR_ID;
                 enqueue_process_queue(FTR, p);
             }
             else {
                 fprintf(SYSTEM_TRACKING_OUTPUT, "Sending process %s to FU\n", p->id);
+                p->curentProcessQueueId = FU_ID;
                 enqueue_process_queue(FU, p);
             }
         }

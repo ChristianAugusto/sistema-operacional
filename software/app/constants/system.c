@@ -21,3 +21,8 @@
 #define MEMORY_TASK_DEALLOCATE_TO_ALLOCATE 3
 
 #define QUANTUM 2U
+
+#define FTR_ID 0
+#define FU_ID 1
+#define FU2_ID 2
+#define FU3_ID 3
