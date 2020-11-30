@@ -1,6 +1,7 @@
 typedef struct Process {
     char* id;
     char priority;
+    unsigned int arrivalTime;
     unsigned int processingTime;
     unsigned int processedTime;
     unsigned long long int qtdMemory;
@@ -24,7 +25,7 @@ void clean_process(Process* p) {
  *  To create process, use process_creator.
  */
 Process* declare_process(
-    char* id, char priority, unsigned int processingTime,
+    char* id, char priority, unsigned int arrivalTime, unsigned int processingTime,
     unsigned long long int qtdMemory, unsigned short qtdPrinters,
     unsigned short qtdScanners, unsigned short qtdModems, unsigned short qtdCds
 ) {
@@ -32,6 +33,7 @@ Process* declare_process(
 
     p->id = id;
     p->priority = priority;
+    p->arrivalTime = arrivalTime;
     p->processingTime = processingTime;
     p->processedTime = 0;
     p->qtdMemory = qtdMemory;

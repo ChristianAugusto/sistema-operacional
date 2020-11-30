@@ -7,6 +7,7 @@ typedef struct MemoryTask {
     unsigned short actionType;
     char* processId;
     unsigned long long int qtdMemory;
+    bool autoClean;
     bool* success;
     struct MemoryTask * next;
 } MemoryTask;
@@ -21,7 +22,7 @@ void clean_memory_task(MemoryTask* mt) {
 
 MemoryTask* declare_memory_task(
     unsigned short actionType, char* processId,
-    unsigned long long int qtdMemory
+    unsigned long long int qtdMemory, bool autoClean
 ) {
     MemoryTask* mt = (MemoryTask*)malloc(sizeof(MemoryTask));
 
@@ -29,6 +30,7 @@ MemoryTask* declare_memory_task(
     mt->processId = processId;
     mt->qtdMemory = qtdMemory;
     mt->qtdMemory = qtdMemory;
+    mt->autoClean = autoClean;
     mt->success = NULL;
     mt->next = NULL;
 

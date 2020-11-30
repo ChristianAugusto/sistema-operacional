@@ -15,21 +15,35 @@ void* dispatcher_watcher(void* arg) {
         printf("Searching for process in FTR...\n");
         p = dequeue_process_queue(FTR);
         if (p != NULL) {
-            MemoryTask* mt = declare_memory_task(
-                MEMORY_TASK_ALLOCATE, p->id, p->qtdMemory
-            );
+            MemoryTask* mt;
 
-            while (mt->success == NULL);
+            mt = declare_memory_task(
+                MEMORY_TASK_ALLOCATE, str_copy(p->id), p->qtdMemory, false
+            );
+            enqueue_memory_task_queue(MTQ, mt);
+
+            while (mt->success == NULL) {
+                printf("preso FTR\n");
+            };
 
 
             bool memory_allocated = *(mt->success);
             clean_memory_task(mt);
             if (memory_allocated) {
+                cpu->running_process = p;
                 sleep_execution(p->processingTime);
+
+                mt = declare_memory_task(
+                    MEMORY_TASK_DEALLOCATE, str_copy(p->id), 0U, true
+                );
+                enqueue_memory_task_queue(MTQ, mt);
+
                 p->processedTime = p->processingTime;
+                cpu->running_process = EMPTY_CPU_RUNNING_PROCESS;
                 clean_process(p);
             }
             else {
+                printf("Real time process and system without enough memory\n");
                 /*
                     TODO: Preempção e desalocação
                 */
@@ -42,17 +56,28 @@ void* dispatcher_watcher(void* arg) {
         p = dequeue_process_queue(FU);
         if (p != NULL) {
             MemoryTask* mt = declare_memory_task(
-                MEMORY_TASK_ALLOCATE, p->id, p->qtdMemory
+                MEMORY_TASK_ALLOCATE, str_copy(p->id), p->qtdMemory, false
             );
+            enqueue_memory_task_queue(MTQ, mt);
 
-            while (mt->success == NULL);
+            while (mt->success == NULL) {
+                printf("preso FU\n");
+            };
 
             bool memory_allocated = *(mt->success);
             clean_memory_task(mt);
 
             if (memory_allocated) {
+                cpu->running_process = p;
                 sleep_execution(QUANTUM);
+
+                mt = declare_memory_task(
+                    MEMORY_TASK_DEALLOCATE, str_copy(p->id), 0U, true
+                );
+                enqueue_memory_task_queue(MTQ, mt);
+
                 p->processedTime += QUANTUM;
+                cpu->running_process = EMPTY_CPU_RUNNING_PROCESS;
 
                 if (p->processedTime >= p->processingTime) {
                     clean_process(p);
@@ -72,17 +97,28 @@ void* dispatcher_watcher(void* arg) {
         p = dequeue_process_queue(FU2);
         if (p != NULL) {
             MemoryTask* mt = declare_memory_task(
-                MEMORY_TASK_ALLOCATE, p->id, p->qtdMemory
+                MEMORY_TASK_ALLOCATE, str_copy(p->id), p->qtdMemory, false
             );
+            enqueue_memory_task_queue(MTQ, mt);
 
-            while (mt->success == NULL);
+            while (mt->success == NULL) {
+                printf("preso FU2\n");
+            };
 
             bool memory_allocated = *(mt->success);
             clean_memory_task(mt);
 
             if (memory_allocated) {
+                cpu->running_process = p;
                 sleep_execution(QUANTUM);
+
+                mt = declare_memory_task(
+                    MEMORY_TASK_DEALLOCATE, str_copy(p->id), 0U, true
+                );
+                enqueue_memory_task_queue(MTQ, mt);
+
                 p->processedTime += QUANTUM;
+                cpu->running_process = EMPTY_CPU_RUNNING_PROCESS;
 
                 if (p->processedTime >= p->processingTime) {
                     clean_process(p);
@@ -102,17 +138,28 @@ void* dispatcher_watcher(void* arg) {
         p = dequeue_process_queue(FU3);
         if (p != NULL) {
             MemoryTask* mt = declare_memory_task(
-                MEMORY_TASK_ALLOCATE, p->id, p->qtdMemory
+                MEMORY_TASK_ALLOCATE, str_copy(p->id), p->qtdMemory, false
             );
+            enqueue_memory_task_queue(MTQ, mt);
 
-            while (mt->success == NULL);
+            while (mt->success == NULL) {
+                printf("preso FU3\n");
+            };
 
             bool memory_allocated = *(mt->success);
             clean_memory_task(mt);
 
             if (memory_allocated) {
+                cpu->running_process = p;
                 sleep_execution(QUANTUM);
+
+                mt = declare_memory_task(
+                    MEMORY_TASK_DEALLOCATE, str_copy(p->id), 0U, true
+                );
+                enqueue_memory_task_queue(MTQ, mt);
+
                 p->processedTime += QUANTUM;
+                cpu->running_process = EMPTY_CPU_RUNNING_PROCESS;
 
                 if (p->processedTime >= p->processingTime) {
                     clean_process(p);
@@ -203,6 +250,10 @@ void* memory_task_watcher(void* arg) {
                     TODO: Implementar preempção
                 */
             }
+
+            if (mt->autoClean) {
+                clean_memory_task(mt);
+            }
         }
     }
 
@@ -222,10 +273,24 @@ void system_turnoff_watcher() {
     while (SYSTEM_STATUS == SYSTEM_STATUS_NORMAL) {
         printf("Turn off system ?...\n");
 
-        printf("Turning off system\n");
-        fprintf(SYSTEM_TRACKING_OUTPUT, "Turning off system\n");
+        if (
+            process_queue_is_empty(FE) && process_queue_is_empty(FU),
+            process_queue_is_empty(FU2) && process_queue_is_empty(FU3)
+        ) {
+            unsigned int i, countCPUSProcessing = 0;
+            for (i = 0; i < CPUS_TOTAL; i++) {
+                if (CPUS[i].running_process != EMPTY_CPU_RUNNING_PROCESS) {
+                    countCPUSProcessing++;
+                    break;
+                }
+            }
 
-        SYSTEM_STATUS = SYSTEM_STATUS_TURNING_OFF;
+            if (countCPUSProcessing == 0) {
+                printf("Turning off system\n");
+                fprintf(SYSTEM_TRACKING_OUTPUT, "Turning off system\n");
+                SYSTEM_STATUS = SYSTEM_STATUS_TURNING_OFF;
+            }
+        }
     }
 
     unsigned int i, countCPUSOn;
@@ -235,6 +300,9 @@ void system_turnoff_watcher() {
                 countCPUSOn++;
             }
         }
+
+        printf("FOO: %u, %d, %d\n", countCPUSOn, DISTRIBUTOR_ON, MEMORY_TASK_WATCHER_ON);
+        print_process_default_output(FTR, "\t", ",");
 
         printf("Waiting watchers turning off...\n");
     } while (countCPUSOn > 0 || DISTRIBUTOR_ON || MEMORY_TASK_WATCHER_ON);

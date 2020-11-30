@@ -8,7 +8,7 @@ int main() {
 
 
     /* tests */
-    
+    read_process_from_file();
 
 
 

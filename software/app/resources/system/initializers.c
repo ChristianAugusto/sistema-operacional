@@ -8,6 +8,7 @@ void init_cpus() {
 
     unsigned int i;
     for (i = 0; i < CPUS_TOTAL; i++) {
+        CPUS[i].running_process = EMPTY_CPU_RUNNING_PROCESS;
         pthread_create(&CPUS[i].dispatcher_thread_id, NULL, dispatcher_watcher, &CPUS[i]);
     }
 }
