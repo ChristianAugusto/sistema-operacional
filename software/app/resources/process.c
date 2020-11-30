@@ -2,7 +2,7 @@ typedef struct Process {
     char* id;
     char priority;
     unsigned int arrivalTime;
-    unsigned int processingTime;
+    unsigned int processingTime; // Seconds
     unsigned long long int qtdMemory;
     unsigned short qtdPrinters;
     unsigned short qtdScanners;

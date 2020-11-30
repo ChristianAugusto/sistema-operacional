@@ -53,6 +53,7 @@ void read_process_from_file() {
             }
         }
 
+        sleep_execution(1*SYSTEM_TIME_UNIT);
         curent_time++;
     }
 }

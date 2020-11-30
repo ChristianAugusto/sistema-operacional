@@ -36,7 +36,7 @@ void* dispatcher_watcher(void* arg) {
 
                 printf("Running process %s\n", p->id);
                 fprintf(SYSTEM_TRACKING_OUTPUT, "Running process %s\n", p->id);
-                sleep_execution(p->processingTime);
+                sleep_execution(p->processingTime * SYSTEM_TIME_UNIT);
 
                 cpu->running_process = EMPTY_CPU_RUNNING_PROCESS;
 
@@ -75,7 +75,7 @@ void* dispatcher_watcher(void* arg) {
                     printf("Running process after deallocate to allocate %s\n", p->id);
                     fprintf(SYSTEM_TRACKING_OUTPUT,
                         "Running process after deallocate to allocate %s\n", p->id);
-                    sleep_execution(p->processingTime);
+                    sleep_execution(p->processingTime * SYSTEM_TIME_UNIT);
 
                     cpu->running_process = EMPTY_CPU_RUNNING_PROCESS;
 
@@ -129,7 +129,7 @@ void* dispatcher_watcher(void* arg) {
                 if (cpu->running_process == EMPTY_CPU_RUNNING_PROCESS) {
                     continue;
                 }
-                sleep_execution(QUANTUM);
+                sleep_execution(QUANTUM * SYSTEM_TIME_UNIT);
                 if (cpu->running_process == EMPTY_CPU_RUNNING_PROCESS) {
                     continue;
                 }
@@ -191,7 +191,7 @@ void* dispatcher_watcher(void* arg) {
                 if (cpu->running_process == EMPTY_CPU_RUNNING_PROCESS) {
                     continue;
                 }
-                sleep_execution(QUANTUM);
+                sleep_execution(QUANTUM * SYSTEM_TIME_UNIT);
                 if (cpu->running_process == EMPTY_CPU_RUNNING_PROCESS) {
                     continue;
                 }
@@ -253,7 +253,7 @@ void* dispatcher_watcher(void* arg) {
                 if (cpu->running_process == EMPTY_CPU_RUNNING_PROCESS) {
                     continue;
                 }
-                sleep_execution(QUANTUM);
+                sleep_execution(QUANTUM * SYSTEM_TIME_UNIT);
                 if (cpu->running_process == EMPTY_CPU_RUNNING_PROCESS) {
                     continue;
                 }
@@ -360,9 +360,82 @@ void* memory_task_watcher(void* arg) {
                 deallocate_memory(RUNNING_MEMORY_TASK->processId);
             }
             else if (RUNNING_MEMORY_TASK->actionType == MEMORY_TASK_DEALLOCATE_TO_ALLOCATE) {
-                /*
-                    TODO: Implementar preempção
-                */
+                bool memory_allocated = false;
+
+                printf("Another try before preemption\n");
+                fprintf(SYSTEM_TRACKING_OUTPUT, "Another try before preemption\n");
+                memory_allocated = allocate_memory(RUNNING_MEMORY_TASK->processId, RUNNING_MEMORY_TASK->qtdMemory);
+
+                if (memory_allocated) {
+                    printf("Success memory allocated without preemption\n");
+                    fprintf(SYSTEM_TRACKING_OUTPUT, "Success memory allocated without preemption\n");
+
+                    bool* aux = (bool*)malloc(sizeof(bool));
+                    *aux = memory_allocated;
+
+                    RUNNING_MEMORY_TASK->success = aux;
+                }
+                else {
+                    bool* aux_bool = NULL;
+                    Process* aux = NULL;
+                    unsigned int i;
+                    for (i = 0; i < CPUS_TOTAL; i++) {
+                        aux = CPUS[i].running_process;
+
+                        if (
+                            aux != EMPTY_CPU_RUNNING_PROCESS &&
+                            aux->priority != SYSTEM_PROCESS_REAL_TIME_PRIORITY
+                        ) {
+                            CPUS[i].running_process = EMPTY_CPU_RUNNING_PROCESS;
+                            deallocate_memory(aux->id);
+
+                            memory_allocated = allocate_memory(RUNNING_MEMORY_TASK->processId, RUNNING_MEMORY_TASK->qtdMemory);
+
+                            if (memory_allocated) {
+                                aux_bool = (bool*)malloc(sizeof(bool));
+                                *aux_bool = memory_allocated;
+
+                                RUNNING_MEMORY_TASK->success = aux_bool;
+
+                                printf("Success memory allocated with preemption\n");
+                                fprintf(SYSTEM_TRACKING_OUTPUT, "Success memory allocated with preemption\n");
+
+                                if (aux->curentProcessQueueId == FU_ID) {
+                                    enqueue_process_queue(FU, aux);
+                                }
+                                else if (aux->curentProcessQueueId == FU2_ID) {
+                                    enqueue_process_queue(FU2, aux);
+                                }
+                                else if (aux->curentProcessQueueId == FU3_ID) {
+                                    enqueue_process_queue(FU3, aux);
+                                }
+
+                                break;
+                            }
+
+                            if (aux->curentProcessQueueId == FU_ID) {
+                                enqueue_process_queue(FU, aux);
+                            }
+                            else if (aux->curentProcessQueueId == FU2_ID) {
+                                enqueue_process_queue(FU2, aux);
+                            }
+                            else if (aux->curentProcessQueueId == FU3_ID) {
+                                enqueue_process_queue(FU3, aux);
+                            }
+                        }
+                    }
+
+                    if (!memory_allocated) {
+                        printf("System memory watcher failed in preemption\n");
+                        fprintf(SYSTEM_TRACKING_OUTPUT, "System memory watcher failed in preemption\n");
+
+
+                        aux_bool = (bool*)malloc(sizeof(bool));
+                        *aux_bool = memory_allocated;
+
+                        RUNNING_MEMORY_TASK->success = aux_bool;
+                    }
+                }
             }
 
             if (autoClean) {
@@ -389,6 +462,10 @@ void system_turnoff_watcher() {
     while (SYSTEM_STATUS == SYSTEM_STATUS_NORMAL) {
         printf("Turn off system ?...\n");
 
+
+        /*
+            Code to force system to turn off
+        */
         if (
             process_queue_is_empty(FE) && process_queue_is_empty(FU) &&
             process_queue_is_empty(FU2) && process_queue_is_empty(FU3) &&
