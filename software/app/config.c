@@ -31,7 +31,10 @@
 /* resources.system */
 #include "./resources/system/globals.c"
 #include "./resources/system/process_queues.c"
-#include "./resources/system/watchers.c"
+#include "./resources/system/dispatcher_watcher.c"
+#include "./resources/system/distributor_watcher.c"
+#include "./resources/system/memory_task_watcher.c"
+#include "./resources/system/system_turnoff_watcher.c"
 #include "./resources/system/initializers.c"
 #include "./resources/system/finishers.c"
 #include "./resources/system/process_creator.c"
