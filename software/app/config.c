@@ -7,7 +7,7 @@
 #include "./types/bool.c"
 
 /* utils */
-#include "./utils/sleep_execution.c"
+#include "./utils/sleep-execution.c"
 #include "./utils/strings.c"
 
 /* constants */
@@ -23,24 +23,26 @@
 #include "./resources/memory.c"
 #include "./resources/memory-task.c"
 #include "./resources/memory-task-queue.c"
-#include "./resources/cd_driver.c"
+#include "./resources/peripherals-task.c"
+#include "./resources/peripherals-task-queue.c"
+#include "./resources/cd-driver.c"
 #include "./resources/modem.c"
 #include "./resources/printer.c"
 #include "./resources/scanner.c"
 
 /* resources.system */
 #include "./resources/system/globals.c"
-#include "./resources/system/process_queues.c"
-#include "./resources/system/dispatcher_watcher.c"
-#include "./resources/system/distributor_watcher.c"
-#include "./resources/system/memory_task_watcher.c"
-#include "./resources/system/system_turnoff_watcher.c"
+#include "./resources/system/process-queues.c"
+#include "./resources/system/dispatcher-watcher.c"
+#include "./resources/system/distributor-watcher.c"
+#include "./resources/system/memory-task-watcher.c"
+#include "./resources/system/system-turnoff-watcher.c"
 #include "./resources/system/initializers.c"
 #include "./resources/system/finishers.c"
-#include "./resources/system/process_creator.c"
+#include "./resources/system/process-creator.c"
 
 /* functions */
-#include "./functions/read_process_from_file.c"
+#include "./functions/read-process-from-file.c"
 
 /* tests */
 #include "./tests/process-queue.c"

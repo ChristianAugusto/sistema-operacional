@@ -73,11 +73,9 @@ void print_process_system_tracking_output(Process* p, char* scape, char* divisio
     fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
 
     fprintf(SYSTEM_TRACKING_OUTPUT, "\tid: %s\n", p->id);
-
     fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
 
     fprintf(SYSTEM_TRACKING_OUTPUT, "\tpriority: %c\n", p->priority);
-
     fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
 
     fprintf(SYSTEM_TRACKING_OUTPUT, "}%s\n", division);

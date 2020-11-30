@@ -78,8 +78,24 @@ void print_memory_task_system_tracking_output(MemoryTask* mt, char* scape, char*
 
     fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
 
-    fprintf(SYSTEM_TRACKING_OUTPUT, "actionType: %u\n", mt->actionType);
+    fprintf(SYSTEM_TRACKING_OUTPUT, "\tactionType: %u,\n", mt->actionType);
+    fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
 
+    fprintf(SYSTEM_TRACKING_OUTPUT, "\tprocessId: %s,\n", mt->processId);
+    fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
+
+    fprintf(SYSTEM_TRACKING_OUTPUT, "\tqtdMemory: %llu,\n", mt->qtdMemory);
+    fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
+
+    fprintf(SYSTEM_TRACKING_OUTPUT, "\tautoClean: %d,\n", mt->autoClean);
+    fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
+
+    if (mt->success == NULL) {
+        fprintf(SYSTEM_TRACKING_OUTPUT, "\tsuccess: NULL\n");
+    }
+    else {
+        fprintf(SYSTEM_TRACKING_OUTPUT, "\tsuccess: %d\n", *(mt->success));
+    }
     fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
 
     fprintf(SYSTEM_TRACKING_OUTPUT, "}%s\n", division);
