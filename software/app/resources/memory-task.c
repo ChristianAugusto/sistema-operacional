@@ -15,7 +15,9 @@ typedef struct MemoryTask {
 
 
 void clean_memory_task(MemoryTask* mt) {
-    free(mt->success);
+    if (mt->success != NULL) {
+        free(mt->success);
+    }
     free(mt);
 }
 
@@ -45,8 +47,24 @@ void print_memory_task_default_output(MemoryTask* mt, char* scape, char* divisio
 
     printf("%s", scape);
 
-    printf("\actionType: %u\n", mt->actionType);
+    printf("\tactionType: %u,\n", mt->actionType);
+    printf("%s", scape);
 
+    printf("\tprocessId: %s,\n", mt->processId);
+    printf("%s", scape);
+
+    printf("\tqtdMemory: %llu,\n", mt->qtdMemory);
+    printf("%s", scape);
+
+    printf("\tautoClean: %d,\n", mt->autoClean);
+    printf("%s", scape);
+
+    if (mt->success == NULL) {
+        printf("\tsuccess: NULL\n");
+    }
+    else {
+        printf("\tsuccess: %d\n", *(mt->success));
+    }
     printf("%s", scape);
 
     printf("}%s\n", division);
@@ -60,7 +78,7 @@ void print_memory_task_system_tracking_output(MemoryTask* mt, char* scape, char*
 
     fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
 
-    fprintf(SYSTEM_TRACKING_OUTPUT, "\actionType: %u\n", mt->actionType);
+    fprintf(SYSTEM_TRACKING_OUTPUT, "actionType: %u\n", mt->actionType);
 
     fprintf(SYSTEM_TRACKING_OUTPUT, "%s", scape);
 

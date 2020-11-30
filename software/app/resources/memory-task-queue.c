@@ -7,7 +7,7 @@ typedef struct {
 
 
 bool memory_task_queue_is_empty(MemoryTaskQueue* q) {
-    return !q->head;
+    return q->head == NULL && q->size == 0;
 }
 
 
@@ -88,7 +88,7 @@ void print_memory_task_queue_default_output(MemoryTaskQueue* q) {
     }
 
 
-    fprintf(SYSTEM_TRACKING_OUTPUT, "[\n");
+    printf("[\n");
 
     MemoryTask* aux = q->head;
 

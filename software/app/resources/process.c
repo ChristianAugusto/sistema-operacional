@@ -54,12 +54,10 @@ void print_process_default_output(Process* p, char* scape, char* division) {
 
     printf("%s", scape);
 
-    printf("\tid: %s\n", p->id);
-
+    printf("\tid: %s,\n", p->id);
     printf("%s", scape);
 
     printf("\tpriority: %c\n", p->priority);
-
     printf("%s", scape);
 
     printf("}%s\n", division);

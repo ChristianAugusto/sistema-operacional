@@ -83,6 +83,10 @@ void init_memory_task_watcher() {
     pthread_create(&thread_id, NULL, memory_task_watcher, NULL);
 }
 
+void init_running_memory_task() {
+    RUNNING_MEMORY_TASK = NULL;
+}
+
 
 void initializers() {
     init_logs();

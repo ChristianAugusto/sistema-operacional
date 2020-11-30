@@ -7,7 +7,7 @@ typedef struct {
 
 
 bool process_queue_is_empty(ProcessQueue* q) {
-    return !q->head;
+    return q->head == NULL && q->size == 0;
 }
 
 
@@ -84,7 +84,7 @@ void print_process_queue_default_output(ProcessQueue* q) {
     }
 
 
-    fprintf(SYSTEM_TRACKING_OUTPUT, "[\n");
+    printf("[\n");
 
     Process* aux = q->head;
 
