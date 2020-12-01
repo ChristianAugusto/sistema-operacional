@@ -7,10 +7,11 @@ void* peripherals_task_watcher(void* arg) {
     PERIPHERALS_TASK_WATCHER_ON = true;
 
     while (SYSTEM_STATUS == SYSTEM_STATUS_NORMAL) {
-        printf("Searching peripherals tasks to execute...\n");
-
         if (!peripherals_task_queue_is_empty(PTQ)) {
             RUNNING_PERIPHERALS_TASK = dequeue_peripherals_task_queue(PTQ);
+
+            print_peripherals_task_default_output(RUNNING_PERIPHERALS_TASK, "", ",");
+            print_peripherals_default_output();
 
             bool autoClean = RUNNING_PERIPHERALS_TASK->autoClean;
 
@@ -123,7 +124,7 @@ void* peripherals_task_watcher(void* arg) {
                     for (
                         i = 0, qtdAllocated = 0;
                         i < CD_DRIVERS_TOTAL && qtdAllocated < RUNNING_PERIPHERALS_TASK->qtdCds;
-                        i++
+                        i++, qtdAllocated++
                     ) {
                         if (CD_DRIVERS[i].processId == NULL) {
                             CD_DRIVERS[i].processId = str_copy(RUNNING_PERIPHERALS_TASK->processId);
@@ -133,7 +134,7 @@ void* peripherals_task_watcher(void* arg) {
                     for (
                         i = 0, qtdAllocated = 0;
                         i < MODEMS_TOTAL && qtdAllocated < RUNNING_PERIPHERALS_TASK->qtdModems;
-                        i++
+                        i++, qtdAllocated++
                     ) {
                         if (MODEMS[i].processId == NULL) {
                             MODEMS[i].processId = str_copy(RUNNING_PERIPHERALS_TASK->processId);
@@ -143,7 +144,7 @@ void* peripherals_task_watcher(void* arg) {
                     for (
                         i = 0, qtdAllocated = 0;
                         i < PRINTERS_TOTAL && qtdAllocated < RUNNING_PERIPHERALS_TASK->qtdPrinters;
-                        i++
+                        i++, qtdAllocated++
                     ) {
                         if (PRINTERS[i].processId == NULL) {
                             PRINTERS[i].processId = str_copy(RUNNING_PERIPHERALS_TASK->processId);
@@ -153,7 +154,7 @@ void* peripherals_task_watcher(void* arg) {
                     for (
                         i = 0, qtdAllocated = 0;
                         i < SCANNERS_TOTAL && qtdAllocated < RUNNING_PERIPHERALS_TASK->qtdScanners;
-                        i++
+                        i++, qtdAllocated++
                     ) {
                         if (SCANNERS[i].processId == NULL) {
                             SCANNERS[i].processId = str_copy(RUNNING_PERIPHERALS_TASK->processId);

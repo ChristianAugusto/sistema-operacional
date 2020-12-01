@@ -12,7 +12,7 @@ void* dispatcher_watcher(void* arg) {
     while (SYSTEM_STATUS == SYSTEM_STATUS_NORMAL) {
         Process* p = NULL;
 
-        printf("Searching for process in FTR...\n");
+
         p = dequeue_process_queue(FTR);
         if (p != NULL) {
             MemoryTask* mt;
@@ -102,7 +102,7 @@ void* dispatcher_watcher(void* arg) {
             continue;
         }
 
-        printf("Searching for process in FU...\n");
+
         p = dequeue_process_queue(FU);
         if (p != NULL) {
             MemoryTask* mt;
@@ -142,6 +142,14 @@ void* dispatcher_watcher(void* arg) {
 
                 memory_allocated = *(mt->success);
                 clean_memory_task(mt);
+            }
+
+            if (!memory_allocated) {
+                pt = declare_peripherals_task(
+                    PERIPHERALS_TASK_DEALLOCATE, str_copy(p->id), 0U,
+                    0U, 0U, 0U, true
+                );
+                enqueue_peripherals_task_queue(PTQ, pt);
             }
 
             if (peripherals_allocated && memory_allocated) {
@@ -197,7 +205,7 @@ void* dispatcher_watcher(void* arg) {
             continue;
         }
 
-        printf("Searching for process in FU2...\n");
+
         p = dequeue_process_queue(FU2);
         if (p != NULL) {
             MemoryTask* mt;
@@ -237,6 +245,14 @@ void* dispatcher_watcher(void* arg) {
 
                 memory_allocated = *(mt->success);
                 clean_memory_task(mt);
+            }
+
+            if (!memory_allocated) {
+                pt = declare_peripherals_task(
+                    PERIPHERALS_TASK_DEALLOCATE, str_copy(p->id), 0U,
+                    0U, 0U, 0U, true
+                );
+                enqueue_peripherals_task_queue(PTQ, pt);
             }
 
             if (peripherals_allocated && memory_allocated) {
@@ -292,7 +308,7 @@ void* dispatcher_watcher(void* arg) {
             continue;
         }
 
-        printf("Searching for process in FU3...\n");
+
         p = dequeue_process_queue(FU3);
         if (p != NULL) {
             MemoryTask* mt;
@@ -332,6 +348,14 @@ void* dispatcher_watcher(void* arg) {
 
                 memory_allocated = *(mt->success);
                 clean_memory_task(mt);
+            }
+
+            if (!memory_allocated) {
+                pt = declare_peripherals_task(
+                    PERIPHERALS_TASK_DEALLOCATE, str_copy(p->id), 0U,
+                    0U, 0U, 0U, true
+                );
+                enqueue_peripherals_task_queue(PTQ, pt);
             }
 
             if (peripherals_allocated && memory_allocated) {

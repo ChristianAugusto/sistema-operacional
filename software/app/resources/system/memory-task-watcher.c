@@ -7,10 +7,10 @@ void* memory_task_watcher(void* arg) {
     MEMORY_TASK_WATCHER_ON = true;
 
     while (SYSTEM_STATUS == SYSTEM_STATUS_NORMAL) {
-        printf("Searching memory tasks to execute...\n");
-
         if (!memory_task_queue_is_empty(MTQ)) {
             RUNNING_MEMORY_TASK = dequeue_memory_task_queue(MTQ);
+
+            print_memory_task_queue_default_output(MTQ);
 
             bool autoClean = RUNNING_MEMORY_TASK->autoClean;
 
@@ -40,6 +40,12 @@ void* memory_task_watcher(void* arg) {
                     *aux = memory_allocated;
 
                     RUNNING_MEMORY_TASK->success = aux;
+
+                    PeripheralsTask* pt = declare_peripherals_task(
+                        PERIPHERALS_TASK_DEALLOCATE, str_copy(RUNNING_MEMORY_TASK->processId), 0U,
+                        0U, 0U, 0U, true
+                    );
+                    enqueue_peripherals_task_queue(PTQ, pt);
                 }
                 else {
                     bool* aux_bool = NULL;

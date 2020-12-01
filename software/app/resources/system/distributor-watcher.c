@@ -7,8 +7,6 @@ void* distributor_watcher(void* arg) {
     DISTRIBUTOR_ON = true;
 
     while (SYSTEM_STATUS == SYSTEM_STATUS_NORMAL) {
-        printf("Searching for process to distribute...\n");
-
         if (!process_queue_is_empty(FE)) {
             Process* p = dequeue_process_queue(FE);
 

@@ -5,10 +5,10 @@ typedef struct PeripheralsTask {
     */
     unsigned short actionType;
     char* processId;
-    unsigned short qtdPrinters;
-    unsigned short qtdScanners;
-    unsigned short qtdModems;
-    unsigned short qtdCds;
+    unsigned int qtdPrinters;
+    unsigned int qtdScanners;
+    unsigned int qtdModems;
+    unsigned int qtdCds;
     bool autoClean;
     bool* success;
     struct PeripheralsTask * next;
@@ -26,8 +26,8 @@ void clean_peripherals_task(PeripheralsTask* pt) {
 
 
 PeripheralsTask* declare_peripherals_task(
-    unsigned short actionType, char* processId, unsigned short qtdPrinters, unsigned short qtdScanners,
-    unsigned short qtdModems, unsigned short qtdCds, bool autoClean
+    unsigned int actionType, char* processId, unsigned int qtdPrinters, unsigned int qtdScanners,
+    unsigned int qtdModems, unsigned int qtdCds, bool autoClean
 ) {
     PeripheralsTask* pt = (PeripheralsTask*)malloc(sizeof(PeripheralsTask));
 
@@ -52,7 +52,25 @@ void print_peripherals_task_default_output(PeripheralsTask* pt, char* scape, cha
 
     printf("%s", scape);
 
-    printf("\tautoClean: %d,\n", pt->autoClean);
+    printf("\tactionType: %u,\n", pt->actionType);
+    printf("%s", scape);
+
+    printf("\tprocessId: %s,\n", pt->processId);
+    printf("%s", scape);
+
+    printf("\tqtdPrinters: %u,\n", pt->qtdPrinters);
+    printf("%s", scape);
+
+    printf("\tqtdScanners: %u,\n", pt->qtdScanners);
+    printf("%s", scape);
+
+    printf("\tqtdModems: %u,\n", pt->qtdModems);
+    printf("%s", scape);
+
+    printf("\tqtdCds: %u,\n", pt->qtdCds);
+    printf("%s", scape);
+
+    printf("\tautoClean: %d\n", pt->autoClean);
     printf("%s", scape);
 
     printf("}%s\n", division);
