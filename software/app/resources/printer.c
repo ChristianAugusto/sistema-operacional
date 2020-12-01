@@ -1,5 +1,4 @@
 typedef struct {
-    unsigned long long int processId;
-    bool inUse;
+    char* processId;
 } PRINTER;
 PRINTER* PRINTERS;

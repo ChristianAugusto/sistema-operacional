@@ -28,21 +28,41 @@ void init_memory() {
 
 void init_cd_drivers() {
     CD_DRIVERS = (CD_DRIVER*)malloc(CD_DRIVERS_TOTAL * sizeof(CD_DRIVER));
+
+    unsigned i;
+    for (i = 0; i < CD_DRIVERS_TOTAL; i++) {
+        CD_DRIVERS[i].processId = NULL;
+    }
 }
 
 
 void init_modems() {
     MODEMS = (MODEM*)malloc(MODEMS_TOTAL * sizeof(MODEM));
+
+    unsigned i;
+    for (i = 0; i < MODEMS_TOTAL; i++) {
+        MODEMS[i].processId = NULL;
+    }
 }
 
 
 void init_printers() {
     PRINTERS = (PRINTER*)malloc(PRINTERS_TOTAL * sizeof(PRINTER));
+
+    unsigned i;
+    for (i = 0; i < PRINTERS_TOTAL; i++) {
+        PRINTERS[i].processId = NULL;
+    }
 }
 
 
 void init_scanners() {
     SCANNERS = (SCANNER*)malloc(SCANNERS_TOTAL * sizeof(SCANNER));
+
+    unsigned i;
+    for (i = 0; i < SCANNERS_TOTAL; i++) {
+        SCANNERS[i].processId = NULL;
+    }
 }
 
 

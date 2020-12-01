@@ -63,6 +63,12 @@ void* memory_task_watcher(void* arg) {
 
                                 RUNNING_MEMORY_TASK->success = aux_bool;
 
+                                PeripheralsTask* pt = declare_peripherals_task(
+                                    PERIPHERALS_TASK_DEALLOCATE, str_copy(aux->id), 0U,
+                                    0U, 0U, 0U, true
+                                );
+                                enqueue_peripherals_task_queue(PTQ, pt);
+
                                 printf("Success memory allocated with preemption\n");
                                 fprintf(SYSTEM_TRACKING_OUTPUT, "Success memory allocated with preemption\n");
 

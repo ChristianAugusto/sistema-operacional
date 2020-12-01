@@ -15,6 +15,7 @@ typedef struct MemoryTask {
 
 
 void clean_memory_task(MemoryTask* mt) {
+    free(mt->processId);
     if (mt->success != NULL) {
         free(mt->success);
     }

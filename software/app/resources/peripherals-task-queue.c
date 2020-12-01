@@ -27,17 +27,17 @@ void clean_peripherals_task_queue(PeripheralsTaskQueue* q) {
 }
 
 
-void enqueue_peripherals_task_queue(PeripheralsTaskQueue* q, PeripheralsTask* p) {
-    p->next = NULL;
+void enqueue_peripherals_task_queue(PeripheralsTaskQueue* q, PeripheralsTask* pt) {
+    pt->next = NULL;
 
     if (peripherals_task_queue_is_empty(q)) {
-        q->head = p;
+        q->head = pt;
     }
     else {
-        q->last->next = p;
+        q->last->next = pt;
     }
 
-    q->last = p;
+    q->last = pt;
     q->size++;
 }
 
