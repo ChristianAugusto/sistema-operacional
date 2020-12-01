@@ -94,7 +94,7 @@ void init_system_status() {
 
 
 void init_running_memory_task() {
-    RUNNING_MEMORY_TASK = NULL;
+    RUNNING_MEMORY_TASK = EMPTY_RUNNING_MEMORY_TASK;
 }
 
 
@@ -110,7 +110,7 @@ void init_memory_task_watcher() {
 
 
 void init_running_peripherals_task() {
-    RUNNING_PERIPHERALS_TASK = NULL;
+    RUNNING_PERIPHERALS_TASK = EMPTY_RUNNING_PERIPHERALS_TASK;
 }
 
 

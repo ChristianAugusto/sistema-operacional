@@ -168,9 +168,9 @@ void* peripherals_task_watcher(void* arg) {
                     RUNNING_PERIPHERALS_TASK->success = aux;
                 }
                 else {
-                    printf("%s - Can not allocate all required peripherals qtd \n",
+                    printf("%s - Can not allocate all required peripherals qtd\n",
                         RUNNING_PERIPHERALS_TASK->processId);
-                    fprintf(SYSTEM_TRACKING_OUTPUT, "%s - Can not allocate all required peripherals qtd \n",
+                    fprintf(SYSTEM_TRACKING_OUTPUT, "%s - Can not allocate all required peripherals qtd\n",
                         RUNNING_PERIPHERALS_TASK->processId);
                 }
             }
@@ -208,7 +208,7 @@ void* peripherals_task_watcher(void* arg) {
                 clean_peripherals_task(RUNNING_PERIPHERALS_TASK);
             }
 
-            RUNNING_PERIPHERALS_TASK = NULL;
+            RUNNING_PERIPHERALS_TASK = EMPTY_RUNNING_PERIPHERALS_TASK;
         }
     }
 

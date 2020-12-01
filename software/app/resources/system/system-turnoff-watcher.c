@@ -12,7 +12,8 @@ void system_turnoff_watcher() {
         if (
             process_queue_is_empty(FE) && process_queue_is_empty(FU) &&
             process_queue_is_empty(FU2) && process_queue_is_empty(FU3) &&
-            memory_task_queue_is_empty(MTQ) && RUNNING_MEMORY_TASK == EMPTY_RUNNING_MEMORY_TASK
+            memory_task_queue_is_empty(MTQ) && RUNNING_MEMORY_TASK == EMPTY_RUNNING_MEMORY_TASK &&
+            peripherals_task_queue_is_empty(PTQ) && RUNNING_PERIPHERALS_TASK == EMPTY_RUNNING_PERIPHERALS_TASK
         ) {
             unsigned int i, countCPUSProcessing = 0;
             for (i = 0; i < CPUS_TOTAL; i++) {
@@ -39,7 +40,7 @@ void system_turnoff_watcher() {
         }
 
         printf("Waiting watchers turning off...\n");
-    } while (countCPUSOn > 0 || DISTRIBUTOR_ON || MEMORY_TASK_WATCHER_ON);
+    } while (countCPUSOn > 0 || DISTRIBUTOR_ON || MEMORY_TASK_WATCHER_ON || PERIPHERALS_TASK_WATCHER_ON);
 
     fprintf(SYSTEM_TRACKING_OUTPUT, "System turned off\n");
     printf("System turned off\n");

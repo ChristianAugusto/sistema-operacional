@@ -119,6 +119,10 @@ void* dispatcher_watcher(void* arg) {
 
             while (pt->success == NULL && PERIPHERALS_TASK_WATCHER_ON);
 
+            if (pt->success == NULL) {
+                break;
+            }
+
             peripherals_allocated = *(pt->success);
             clean_peripherals_task(pt);
 
@@ -182,8 +186,11 @@ void* dispatcher_watcher(void* arg) {
                 }
             }
             else {
-                printf("%s - Memory lack, resending process to FU\n", p->id);
-                fprintf(SYSTEM_TRACKING_OUTPUT, "%s - Memory lack, resending process to FU\n", p->id);
+                printf("%s - Memory lack %d || peripherals not available %d, resending process to FU\n",
+                    p->id, memory_allocated, peripherals_allocated);
+                fprintf(SYSTEM_TRACKING_OUTPUT,
+                    "%s - Memory lack %d || peripherals not available %d, resending process to FU\n",
+                    p->id, memory_allocated, peripherals_allocated);
                 enqueue_process_queue(FU, p);
             }
 
@@ -206,6 +213,10 @@ void* dispatcher_watcher(void* arg) {
             enqueue_peripherals_task_queue(PTQ, pt);
 
             while (pt->success == NULL && PERIPHERALS_TASK_WATCHER_ON);
+
+            if (pt->success == NULL) {
+                break;
+            }
 
             peripherals_allocated = *(pt->success);
             clean_peripherals_task(pt);
@@ -270,9 +281,12 @@ void* dispatcher_watcher(void* arg) {
                 }
             }
             else {
-                printf("%s - Memory lack, resending process to FU2\n", p->id);
-                fprintf(SYSTEM_TRACKING_OUTPUT, "%s - Memory lack, resending process to FU2\n", p->id);
-                enqueue_process_queue(FU2, p);
+                printf("%s - Memory lack %d || peripherals not available %d, resending process to FU\n",
+                    p->id, memory_allocated, peripherals_allocated);
+                fprintf(SYSTEM_TRACKING_OUTPUT,
+                    "%s - Memory lack %d || peripherals not available %d, resending process to FU\n",
+                    p->id, memory_allocated, peripherals_allocated);
+                enqueue_process_queue(FU, p);
             }
 
             continue;
@@ -294,6 +308,10 @@ void* dispatcher_watcher(void* arg) {
             enqueue_peripherals_task_queue(PTQ, pt);
 
             while (pt->success == NULL && PERIPHERALS_TASK_WATCHER_ON);
+
+            if (pt->success == NULL) {
+                break;
+            }
 
             peripherals_allocated = *(pt->success);
             clean_peripherals_task(pt);
@@ -357,9 +375,12 @@ void* dispatcher_watcher(void* arg) {
                 }
             }
             else {
-                printf("%s - Memory lack, resending process to FU3\n", p->id);
-                fprintf(SYSTEM_TRACKING_OUTPUT, "%s - Memory lack, resending process to FU3\n", p->id);
-                enqueue_process_queue(FU3, p);
+                printf("%s - Memory lack %d || peripherals not available %d, resending process to FU\n",
+                    p->id, memory_allocated, peripherals_allocated);
+                fprintf(SYSTEM_TRACKING_OUTPUT,
+                    "%s - Memory lack %d || peripherals not available %d, resending process to FU\n",
+                    p->id, memory_allocated, peripherals_allocated);
+                enqueue_process_queue(FU, p);
             }
 
             continue;

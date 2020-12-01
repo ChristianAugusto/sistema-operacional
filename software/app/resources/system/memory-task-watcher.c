@@ -114,7 +114,7 @@ void* memory_task_watcher(void* arg) {
                 clean_memory_task(RUNNING_MEMORY_TASK);
             }
 
-            RUNNING_MEMORY_TASK = NULL;
+            RUNNING_MEMORY_TASK = EMPTY_RUNNING_MEMORY_TASK;
         }
     }
 
